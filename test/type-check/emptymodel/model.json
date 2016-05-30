@@ -1,0 +1,23 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "consts": [
+    {
+      "name": "MandorConst"
+    }
+  ],
+  "enums": [
+    {
+      "name": "MandorEnum"
+    }
+  ],
+  "models": [
+    {
+      "name": "Mandor"
+    }
+  ],
+  "contracts": [
+    {
+      "name": "MandorContr"
+    }
+  ]
+}

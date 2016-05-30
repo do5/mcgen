@@ -1,0 +1,45 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "consts": [
+    {
+      "name": "ConstName",
+      "items": [
+        {
+          "name": "Val",
+          "value": 21
+        },
+        {
+          "name": "ValStr",
+          "value": "str"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "OnOff",
+      "items": [
+        {
+          "name": "On",
+          "value": 1
+        },
+        {
+          "name": "Off",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "Mandor",
+      "items": [
+        {
+          "name": "prop2",
+          "description": "desc",
+          "type": "OnOff"
+        }
+      ]
+    }
+  ]
+}

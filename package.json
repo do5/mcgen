@@ -1,0 +1,43 @@
+{
+  "name": "mcgen",
+  "version": "1.0.0-beta.1",
+  "description": "Multi code generator - a utility to create a unified data model for different programming languages",
+  "main": "lib/mcgen.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/do5/mcgen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/do5/mcgen/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "postinstall": "typings install && npm run build",
+    "pretest": "",
+    "test": "mocha",
+    "start": "tsc -w",
+    "watch-hbs": "onchange \"template/**/*.hbs\" -v -- node lib/mcgen.js --indir test/import/ok --outdir test/.temp/import/ok",
+    "build": "tsc"
+  },
+  "author": "do5",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^0.30.0",
+    "handlebars": "^4.0.5",
+    "js-yaml": "^3.6.1",
+    "jsen": "^0.6.1",
+    "strip-json-comments": "^2.0.1",
+    "tslint": "^3.10.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "onchange": "^2.4.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
+  }
+}

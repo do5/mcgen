@@ -1,0 +1,68 @@
+/*
+  JSON allows comments. It will use single-line comments // and multi-line comments /* with whitespace
+*/
+{
+  //Optional
+  "$schema": "shemas/mcgen-shema.json",
+  "imports": [
+    {
+      //Model where is the type.
+      //The path is relative, no start '/' and without the extension '.json'. Delimiter '/'
+      "file": "auth/auth-model",
+      //The imported data type can only be a 'model' and used as a parameter or inheritance
+      "type": "User"
+    }
+  ],
+  /*
+Enumerators. As enum C#
+Enumerator is not supported by all languages. If the enumerator does not support using constants
+*/
+  "enums": [
+    {
+      "name": "OnOff",
+      "items": [
+        {
+          "name": "On",
+          "value": 1
+        },
+        {
+          "name": "Off",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  /*
+  constants
+  */
+  "consts": [
+    {
+      "name": "className",
+      "description": "className",
+      "items": [
+        {
+          "name": "sss",
+          "type": "integer",
+          "value": true
+        },
+        {
+          "name": "ssss1",
+          "type": "boolean",
+          "value": 12
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "UserInfo",
+      "basetype": "User",
+      "items": [
+        {
+          "name": "Address",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

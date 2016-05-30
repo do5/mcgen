@@ -1,0 +1,13 @@
+{
+  "$schema": "shemas/info-template-shema.json",
+  "id": "php",
+  "ext": ".php",
+  "description": "PHP template",
+  "vars": [
+    {
+      "name": "ver",
+      "description": "Version PHP. Support [5,7]",
+      "value": 7
+    }
+  ]
+}

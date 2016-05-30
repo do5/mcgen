@@ -1,0 +1,15 @@
+{
+  "$schema": "shemas/info-template-shema.json",
+  "id": "eloquent-php",
+  "addname": "eloquent",
+  "creatematch": "extends Model",
+  "ext": ".php",
+  "description": "Laravel EloquentDB PHP template",
+  "vars": [
+    {
+      "name": "ver",
+      "description": "Version PHP. Support [5,7]",
+      "value": 7
+    }
+  ]
+}

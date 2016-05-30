@@ -1,0 +1,17 @@
+consts:
+- name: "MyConst"
+  description: "desc"
+  items:
+  - name: "Integer"
+    type: "integer"
+    description: "desc val"
+    value: 23
+models:
+- name: "MyType"
+  items:
+  - name: "prop1"
+    type: "boolean"
+    description: "prop1 desc"
+  - name: "prop2"
+    type: "boolean"
+    description: "prop2 desc"

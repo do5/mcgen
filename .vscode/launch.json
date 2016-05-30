@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "nodejs",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/lib/mcgen.ts",
+      "stopOnEntry": false,
+      "args": [
+        /*
+        "init",
+        "proj"
+        */
+        "--id",
+        "php",
+        "--indir",
+        "test/import/ok",
+        "--outdir",
+        "test/.temp/import/ok"
+      ],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": null,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "externalConsole": false,
+      "sourceMaps": true,
+      "outDir": null
+    },
+    {
+      "name": "Run mocha",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "args": [
+        "-t",
+        "60000"
+        //"test/test.js"
+      ],
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "env": {
+        "IDE_DEBUG": "true",
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}

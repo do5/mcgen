@@ -1,0 +1,21 @@
+{
+  "name": "multicodegen",
+  "dependencies": {
+    "strip-json-comments": "registry:npm/strip-json-comments#2.0.0+20160211003958"
+  },
+  "globalDependencies": {
+    "commander": "registry:dt/commander#2.3.0+20160317120654",
+    "fs-extra": "registry:dt/fs-extra#0.0.0+20160319124112",
+    "handlebars": "registry:dt/handlebars#3.0.3+20160317120654",
+    "js-yaml": "registry:dt/js-yaml#3.5.2+20160316171810",
+    "jsen": "registry:dt/jsen#0.0.0+20160328204314",
+    "node": "registry:dt/node#6.0.0+20160514165920",
+    "underscore": "registry:dt/underscore#1.7.0+20160505190121"
+  },
+  "globalDevDependencies": {
+    "mocha": "registry:env/mocha#2.2.5+20160321223601"
+  },
+  "devDependencies": {
+    "chai": "registry:npm/chai#3.5.0+20160415060238"
+  }
+}

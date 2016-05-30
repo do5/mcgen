@@ -1,0 +1,92 @@
+{{!-- ****SERVICE SECTION**** --}}
+{{#regmap 'typecs' 'boolean:bool;integer:int;integer64:Int64;float:double;string:string' ~}}{{/regmap ~}}
+
+{{!-- ****IMPORT SECTION**** --}}
+using System;
+{{#each imports}}
+using {{type}} = {{replace file '/' '.' 'firstupper'}}.{{type}};
+{{/each}}
+
+namespace {{replace path '/' '.' 'firstupper'}}
+{
+  {{!-- ****CONST SECTION**** --}}
+  {{#each consts}}
+  {{#if description}}
+  /// <summary>
+  /// {{ description }}
+  /// </summary>
+  {{/if}}
+  public static class {{name}}
+  {
+    {{#each items }}
+    {{#if description}}
+    /// <summary>
+    /// {{ description }}
+    /// </summary>
+    {{/if}}
+    public const {{map 'typecs' type}} {{name}} = {{#val value "'"}}{{/val}};
+    {{/each}}
+  }
+  {{/each}}
+
+  {{!-- ****ENUMS SECTION**** --}}
+  {{#each enums}}
+  {{#if description}}
+  /// <summary>
+  /// {{ description }}
+  /// </summary>
+  {{/if}}
+  public enum {{ name }}
+  {
+    {{#each items}}
+    {{#if description}}
+    /**
+    * {{ description }}
+    **/
+    {{/if}}
+    {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
+    {{/each}}
+  }
+  {{/each}}
+
+  {{!-- ****MODEL SECTION**** --}}
+  {{#each models}}
+  {{#if description}}
+  /// <summary>
+  /// {{ description }}
+  /// </summary>
+  {{/if}}
+  public class {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
+  {
+    {{#each items}}
+    /// <summary>
+    /// {{#if required}}Required{{else}}Optional{{/if}}. {{ description }}
+    /// </summary>
+    public {{name}}: {{map 'typecs' type}};
+    {{/each}}
+  }
+  {{/each}}
+
+
+  {{!-- ****CONTRACT SECTION**** --}}
+  {{#each contracts}}
+  {{#if description}}
+  /// <summary>
+  /// {{ description }}
+  /// </summary>
+  {{/if}}
+  public interface {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
+  {
+    {{#each methods}}
+    /// <summary>
+    /// {{ description }}
+    {{#each args}}
+    /// <param name="{{name}}">{{description}}</param>
+    {{/each}}
+    {{#if result}}/// <returns>{{result.description}}</returns>{{/if}}
+    /// </summary>
+    {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}} {{name}}{{/each}}){{#if result}}: {{map 'typecs' result.type}}{{/if}};
+    {{/each}}
+  }
+  {{/each}}
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "models": [
+    {
+      "name": "MyType",
+      "items": [
+        {
+          "name": "prop2",
+          "type": "integer"
+        }
+      ]
+    }
+  ]
+}

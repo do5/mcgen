@@ -1,0 +1,57 @@
+{
+  //Тест ок
+  "$schema": "shemas/mcgen-shema.json",
+  "imports": [
+    {
+      "file": "imp/const",
+      "type": "MyType"
+    }
+  ],
+  "models": [
+    {
+      "name": "MyTypeNext",
+      "basetype": "MyType",
+      "items": [
+        {
+          "name": "prop2",
+          "type": "boolean",
+          "description": "prop2 desc"
+        },
+        {
+          "name": "prop3",
+          "type": "MyType",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "name": "MyContract",
+      "basetype": "MyType",
+      "methods": [
+        {
+          "type": "dd",
+          "name": "getData",
+          "description": "desc getData",
+          "result": {
+            "type": "MyType",
+            "description": "result desc"
+          },
+          "args": [
+            {
+              "name": "arg1",
+              "type": "integer",
+              "description": "arg1 desc"
+            },
+            {
+              "name": "arg2",
+              "type": "string",
+              "description": "arg2 desc"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

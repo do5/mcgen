@@ -1,0 +1,1 @@
+**$table** - field is set automatically by the name of the model and in lowercase. It can be set.

@@ -1,0 +1,44 @@
+{
+  "title": "Additional options for templates",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {},
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "addname": {
+      "type": "string"
+    },
+    "ext": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "vars": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "ext"
+  ]
+}

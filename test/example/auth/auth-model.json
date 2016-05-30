@@ -1,0 +1,34 @@
+{
+  //Optional
+  "$schema": "shemas/mcgen-shema.json",
+  "models": [
+    {
+      "name": "UserBase",
+      "description": "User model base",
+      "items": [
+        {
+          "name": "UserName",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Psw",
+          "description": "ads",
+          "type": "boolean",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "basetype": "UserBase",
+      "description": "User model",
+      "items": [
+        {
+          "name": "EMail",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "models": [
+    {
+      "attrs": [
+        {
+          "id": "eloquent",
+
+          "casts": [
+            "'is_admin' => 'boolean'",
+            "'options' => 'array'"
+          ],
+          "dates": [
+            "'create'",
+            "'delete'"
+          ],
+          "incrementing": true,
+
+          "connection": "site_db",
+					"primaryKey": "'pk'",
+					"perPage": 20,
+					"timestamps": "false",
+					"$touches": [
+						"'parent_table'"
+					],
+
+					"hidden": "['password']",
+					"visible": "array('first_name', 'last_name')",
+
+          "relations": [
+            "['IX_Name', ['f1', 'f2', 'f3']]",
+            "['IX_Name1', ['f1', 'f2', 'f3']]"
+          ]
+        }
+      ],
+      "name": "Mandor",
+      "items": [
+        {
+          "attrs": [
+            {
+              "id": "eloquent"
+            }
+          ],
+          "name": "prop2",
+          "description": "desc",
+          "type": "integer"
+        },
+        {
+          "attrs": [
+            {
+              "id": "eloquent"
+            }
+          ],
+          "name": "pro3",
+          "description": "desc",
+          "type": "string"
+        },
+        {
+          "name": "prop2",
+          "description": "desc",
+          "type": "integer"
+        }
+      ]
+    }
+  ]
+}

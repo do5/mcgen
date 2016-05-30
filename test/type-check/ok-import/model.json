@@ -1,0 +1,20 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "imports": [
+    {
+      "file": "type",
+      "type": "MyType"
+    }
+  ],
+  "models": [
+    {
+      "name": "Mandor",
+      "items": [
+        {
+          "name": "prop",
+          "type": "MyType"
+        }
+      ]
+    }
+  ]
+}

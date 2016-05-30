@@ -1,0 +1,39 @@
+{{!-- ****SERVICE SECTION**** --}}
+{{regmap 'typephp' 'boolean:bool;integer,integer64:int;float:float;string:string;enums:int' ~}}
+
+<?php
+/*
+* Generate info - version php: {{vars.ver}}
+*/
+
+{{!-- ****IMPORT SECTION**** --}}
+namespace {{#replace path '/' "\^" 'firstupper'}}{{/replace}};
+
+use Illuminate\Database\Eloquent\Model;
+
+{{!-- ****MODEL SECTION**** --}}
+{{#each models}}
+{{#ifattr attrs 'eloquent'}}
+class {{ name }}DAO implemens {{ name }} extends Model
+{
+  {{#ifnattr attrs 'eloquent.table'}}
+  protected $table = '{{lowercase name}}';
+  {{/ifnattr}}
+  {{#attrs-each attrs 'eloquent'}}
+  {{#iftype attr-val 'array'}}
+  protected ${{attr-key}} =  [
+    {{#each attr-val}}
+    {{{this}}}
+    {{/each}}
+    ];
+  {{else}}
+
+  protected ${{{attr-key}}} = {{{attr-val}}};
+  {{/iftype}}
+  {{/attrs-each}}
+
+}
+{{/ifattr}}
+{{/each}}
+
+

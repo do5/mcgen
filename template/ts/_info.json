@@ -1,0 +1,8 @@
+{
+  "$schema": "shemas/info-template-shema.json",
+  "id": "ts",
+  "ext": ".ts",
+  "description": "Type script template",
+  "vars": [
+  ]
+}

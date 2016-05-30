@@ -1,0 +1,16 @@
+typings
+node_modules
+**/*npm-debug.log.*
+*.js.map
+lib/**/*.js
+lib/**/*.js.map
+template/**/*.temp.js
+test/**/.temp*
+test/**/*.js
+
+
+!**/*e2e-spec.js
+!karma*.js
+!protractor*.js
+!wallaby.js
+/public/

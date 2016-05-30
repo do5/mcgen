@@ -1,0 +1,9 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "imports": [
+    {
+      "file":"nodir",
+      "type": "NoData"
+    }
+  ]
+}
