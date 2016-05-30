@@ -1,6 +1,6 @@
 {
   "name": "mcgen",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Multi code generator - a utility to create a unified data model for different programming languages",
   "main": "lib/mcgen.js",
   "bin": {
@@ -18,7 +18,7 @@
     "test": "test"
   },
   "scripts": {
-    "postinstall": "typings install && npm run build",
+    "postinstall": "typings install && tsc",
     "pretest": "",
     "test": "mocha",
     "start": "tsc -w",
