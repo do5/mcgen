@@ -4,7 +4,7 @@
   "description": "Multi code generator - a utility to create a unified data model for different programming languages",
   "main": "lib/mcgen.js",
   "bin": {
-    "tslint": "./bin/tslint"
+    "mcgen": "./bin/mcgen"
    },
   "license": "MIT",
   "repository": {
