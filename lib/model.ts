@@ -113,7 +113,7 @@ export class Model extends ErrorLast {
   //exteranl call - this destroy used static
   public isSimpleType(typeName: string): boolean {
     if (Model.simpleTypes === null) {
-      let jsonShema = path.join(Setting.__root, 'shemas', 'mcgen-shema.json');
+      let jsonShema = Setting.shema_file;
       let shema = fs.readJsonSync(jsonShema);
       if (_.isUndefined(shema.definitions.simpleTypes.enum)) {
         throw Error(`Error in ${jsonShema} path shema.definitions.simpleTypes.enum`);

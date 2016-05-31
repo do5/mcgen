@@ -23,8 +23,8 @@ export class Setting {
 
   //Path
   public static __root = path.normalize(require('app-root-dir').get());
-  public static templ_dir = path.join(Setting.__root, 'template');
-  public static shema_dir = path.join(Setting.__root, 'shemas/mcgen-shema.json');
+  public static templ_dir = path.normalize(path.join(__dirname, '..', 'template'));
+  public static shema_file = path.normalize(path.join(__dirname, '..', 'shemas', 'mcgen-shema.json'));
 
 
   //--Eval in bootstrap module
@@ -40,6 +40,6 @@ export class Setting {
     Setting.integTemplates = Template.createTemplates($.readAbsDir(Setting.templ_dir));
     Setting.templates = _.extend(Setting.integTemplates, Setting.userTemplate);
 
-    Setting.validatorJSON = new JsonValidator(Setting.shema_dir);
+    Setting.validatorJSON = new JsonValidator(Setting.shema_file);
   }
 };
