@@ -9,19 +9,10 @@ import {CmdUtils}  from  './cmd-utils';
 import {Utils as $}  from  './utils';
 import * as _ from 'underscore';
 
+
 let package_json = fs.readJsonSync(path.join(Setting.__root, 'package.json'));
-
-
 let cmd = new CmdUtils();
 
-/*
-process.argv.push('--id');
-process.argv.push('php');
-process.argv.push('--indir');
-process.argv.push(path.join(Setting.__root, 'test', 'import', 'ok'));
-process.argv.push('--outdir');
-process.argv.push(path.join(Setting.__root, 'test', '.temp', 'import', 'ok'));
-*/
 program
   .version(package_json.version)
   .description(package_json.description)

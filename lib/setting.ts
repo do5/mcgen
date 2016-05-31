@@ -22,7 +22,7 @@ export class Setting {
   public static mp_console: boolean = true;
 
   //Path
-  public static __root = path.normalize(__dirname + '/..');
+  public static __root = path.normalize(require('app-root-dir').get());
   public static templ_dir = path.join(Setting.__root, 'template');
   public static shema_dir = path.join(Setting.__root, 'shemas/mcgen-shema.json');
 
