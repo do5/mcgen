@@ -200,7 +200,7 @@
                 },
                 "required": {
                   "type": "boolean",
-                  "default": "true"
+                  "default": "false"
                 }
               }
             },
