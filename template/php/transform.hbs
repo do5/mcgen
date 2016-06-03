@@ -6,16 +6,16 @@
 * Generate info - version php: {{vars.ver}}
 */
 {{!-- ****IMPORT SECTION**** --}}
-namespace {{#replace path '/' "\^" 'firstupper'}}{{/replace}};
+namespace {{replace path '/' "\^" 'firstupper'}};
 
 {{#each imports}}
-use {{#replace file '/' "\^"  'firstupper'}}{{/replace}}\\{{type}};
+use {{replace file '/' "\^"  'firstupper'}}\\{{type}};
 {{/each}}
 {{!-- ****CONST SECTION**** --}}
 {{#each consts}}
 {{#if description}}
 /**
-* {{ description }}
+* {{{ description }}}
 */
 
 {{/if}}
@@ -24,7 +24,7 @@ interface {{name}}
   {{#each items }}
   {{#if description}}
   /**
-  * @var {{map 'typephp' type}} {{ description }}
+  * @var {{map 'typephp' type}} {{{ description }}}
   */
   {{/if}}
   const {{name}} = {{#val value "'"}}{{/val}};
@@ -36,7 +36,7 @@ interface {{name}}
 {{#each enums}}
 {{#if description}}
 /**
-* {{ description }}
+* {{{ description }}}
 */
 {{/if}}
 interface {{name}}
@@ -44,7 +44,7 @@ interface {{name}}
   {{#each items }}
   {{#if description}}
   /**
-  * @var {{map 'typephp' type}} {{ description }}
+  * @var {{map 'typephp' type}} {{{ description }}}
   */
   {{/if}}
   const {{name}} = {{#val value "'"}}{{/val}};
@@ -55,9 +55,9 @@ interface {{name}}
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 /**
-* {{ description }}
+* {{{ description }}}
 {{#each items}}
-* @property {{map 'typephp' type}} ${{name}} {{#if required}}Required. {{else}}Optional. {{/if}}{{#ifenum type}}Use interface {{type}}. {{/ifenum}}{{ description }}
+* @property {{map 'typephp' type}} ${{name}} {{#if required}}Required. {{else}}Optional. {{/if}}{{#ifenum type}}Use interface {{type}}. {{/ifenum}}{{{ description }}}
 {{/each}}
 */
 interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
@@ -73,14 +73,14 @@ interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
 {{#each contracts}}
 {{#if description}}
 /**
-* {{ description }}
+* {{{ description }}}
 */
 {{/if}}
 interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
 {
   {{#each methods}}
   /**
-  * {{ description }}
+  * {{{ description }}}
   *
   {{#each args}}
   * @param {{map 'typephp' type}} ${{name}} {{description}}

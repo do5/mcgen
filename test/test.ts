@@ -23,6 +23,19 @@ Setting.postinit();
 Setting.mp_console = false;
 
 
+describe('check big project', () => {
+  let _indir = path.join(indir, 'big-proj');
+  let _outdir = path.join(outdir, 'big-proj');
+  it('should ok', () => {
+    var model = new Model(_indir);
+    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+    let val = Setting.templates['php'];
+    assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+    val = Setting.templates['eloquent-php'];
+    assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+  });
+});
+
 describe('check only enums', () => {
   let _indir = path.join(indir, 'enums');
   let _outdir = path.join(outdir, 'enums');

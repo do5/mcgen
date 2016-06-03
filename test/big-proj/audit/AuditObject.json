@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "models": [
+    {
+      "name": "AuditObject",
+      "description": "Base class for any audit objects",
+      "items": [
+        {
+          "name": "version",
+          "description": "Class version",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+  /*
+  "consts": [
+    {
+      "name": "my",
+      "items": [
+        {
+          "name": "aa",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "AuditType",
+      "description": "Type of audit message",
+      "items": [
+        {
+          "name": "UserLogin",
+          "value": 1,
+          "description": "User login"
+        },
+        {
+          "name": "UserLogout",
+          "value": 2,
+          "description": "User logout"
+        }
+      ]
+    }
+  ]
+  */
+}

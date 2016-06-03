@@ -10,7 +10,7 @@ import * as _ from 'underscore';
 import {Setting}  from './setting';
 import * as Handlebars from 'handlebars';
 import {CodeBuider} from './code-builder'
-import {HandlebarsContext} from './global-handler-hbs';
+import {HandlebarsContext, HandlebarsAddContext} from './global-handler-hbs';
 
 //Once registor helpers
 CodeBuider.regGlobals();
@@ -55,14 +55,45 @@ export class Template extends ErrorLast {
 
     let result = false;
     try {
-      return this._proccess(model, destdir);
+      this.resetError();
+      let addContext: HandlebarsAddContext = { contexts: [] };
+      this._proccessEachFile(model, destdir, addContext);
+      if (this.isError()) return !this.isError();
+      this._proccessAddFile(destdir, addContext);
+      return !this.isError();
     } finally {
       CodeBuider.unreg(regHelpers);
     }
   }
 
-  private _proccess(model: Model, destdir: string): boolean {
-    this.resetError();
+  private _proccessAddFile(destdir: string, addContext: HandlebarsAddContext): boolean {
+    let files: string[] = [];
+    $.readAbsFileRec([this.pathTemplate], files, ['.hbs']);
+    for (var i = 0; i < files.length; i++) {
+      if (path.basename(files[i]) === TRANSFORM_FILE) continue;
+
+      try {
+        let transform = Handlebars.compile(fs.readFileSync(files[i], 'utf8'));
+        let result = transform(addContext);
+        $.consoleProccessCompil('Compilation', files[i]);
+        let outfile = path.relative(this.pathTemplate, files[i]);
+        outfile = path.join(destdir, outfile.replace(path.extname(outfile), ''));
+
+        if (!fs.existsSync(path.dirname(outfile))) {
+          fs.emptyDirSync(path.dirname(outfile));
+        }
+
+        fs.writeFileSync(outfile, result, 'utf8');
+      } catch (err) {
+        this.error(`Error transform ${err.message}`, files[i]);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private _proccessEachFile(model: Model, destdir: string, addContext: HandlebarsAddContext): boolean {
 
     let file_trans = fs.readFileSync(path.join(this.pathTemplate, TRANSFORM_FILE), 'utf8');
 
@@ -94,15 +125,19 @@ export class Template extends ErrorLast {
 
         let context = <HandlebarsContext>model_cur;
         context.vars = defvars;
-        context.path = path_model;
-        context.nativeType = {};
+        context.path = path.dirname(path_model);
+        context.filename = path.basename(path_model);
+        context.types = {};
+        context.typesinfile = {};
         context.func = {
           isSimpleType: model.isSimpleType
         };
-        _.each(model.getTypes(), (val, key) => context.nativeType[key] = val.nativeType);
+        _.each(model.getTypes(), (val, key) => context.types[key] = val.nativeType);
+        _.each(Model.getModelTypes(model_cur), (val, key) => context.typesinfile[key] = val.nativeType);
+        addContext.contexts.push(context);
 
         let result = transform(context);
-        if (!_.isUndefined(this.info.creatematch)){
+        if (!_.isUndefined(this.info.creatematch)) {
           if (result.indexOf(this.info.creatematch) < 0) return;
         }
 

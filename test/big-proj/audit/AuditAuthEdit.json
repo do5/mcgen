@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+    "imports": [
+    {
+      //Model where is the type.
+      //The path is relative, no start '/' and without the extension '.json'. Delimiter '/'
+      "file": "audit/AuditObject",
+      //The imported data type can only be a 'model' and used as a parameter or inheritance
+      "type": "AuditObject"
+    }
+  ],
+  "models": [
+    {
+      "name": "AuditUserEdit",
+      "description": "Object provides information about edit the user's information",
+      "basetype": "AuditObject",
+      "items": [
+        {
+          "name": "edited_user",
+          "description": "Edited user name",
+          "type": "string"
+        },
+        {
+          "name": "action",
+          "description": "",
+          "type": "AuthEditAction"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "AuthEditAction",
+      "description": "",
+      "items": [
+        {
+          "name": "Add",
+          "value": 1
+        },
+        {
+          "name": "Edit",
+          "value": 2
+        },
+        {
+          "name": "Delete",
+          "value": 3
+        }
+      ]
+    }
+  ]
+}

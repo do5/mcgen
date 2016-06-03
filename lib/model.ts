@@ -10,16 +10,18 @@ import {Setting} from './setting';
 import {SUPPORT_EXT, ModelFile} from './model-file';
 
 export type NativeType = 'enums' | 'models' | 'consts' | 'contracts';
+interface ModelTypes {
+  [typename: string]: {
+    nativeType: NativeType;
+    model: def.ModelInfo
+  }
+}
 
 export class Model extends ErrorLast {
   private modelsNative: { [path: string]: def.ModelInfo } = {};
+
   //All types in all files
-  private types: {
-    [typename: string]: {
-      nativeType: NativeType;
-      model: def.ModelInfo
-    }
-  } = {};
+  private types: ModelTypes = {};
 
   public getModels(): { [path: string]: def.ModelInfo } {
     return this.modelsNative;
@@ -35,14 +37,25 @@ export class Model extends ErrorLast {
     return result;
   }
 
-  private filltypes(mInfo: def.ModelInfo) {
-    let addtype = (name: string, nativeType: NativeType) => {
-      let t = this.types[name];
+  private static chechDublication(mt: ModelTypes, name:string, mInfo: def.ModelInfo) {
+      let t = mt[name];
       if (!_.isUndefined(t)) {
         throw Error(`Duplication type ${name} in the file with the file '${$.relpath(t.model.$src)}' '${$.relpath(mInfo.$src)}' `);
       }
+  }
 
-      this.types[name] = {
+  private filltypes(mInfo: def.ModelInfo) {
+    _.each(Model.getModelTypes(mInfo), (val, key) => {
+      Model.chechDublication(this.types, key, mInfo);
+      this.types[key] = val;
+    });
+  }
+
+  public static getModelTypes(mInfo: def.ModelInfo): ModelTypes {
+    let result: ModelTypes = {};
+    let addtype = (name: string, nativeType: NativeType) => {
+      Model.chechDublication(result, name, mInfo);
+      result[name] = {
         nativeType: nativeType,
         model: mInfo
       };
@@ -51,6 +64,7 @@ export class Model extends ErrorLast {
     _.each(mInfo.enums, (val) => addtype(val.name, 'enums'));
     _.each(mInfo.models, (val) => addtype(val.name, 'models'));
     _.each(mInfo.contracts, (val) => addtype(val.name, 'contracts'));
+    return result;
   }
 
   private readModelRec(dirs: string[], validator: JsonValidator): void {

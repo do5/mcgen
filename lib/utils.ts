@@ -58,6 +58,21 @@ export class Utils {
     return result;
   }
 
+  public static readAbsFileRec(dirs: string[], filesout: string[], ext: string[] = []): void {
+    for (let i = 0; i < dirs.length; i++) {
+      let chielddirs = Utils.readAbsDir(dirs[i]);
+      if (chielddirs.length != 0) {
+        Utils.readAbsFileRec(chielddirs, filesout, ext);
+      }
+
+      let files = Utils.readAbsFiles(dirs[i], ext);
+      for (let n = 0; n < files.length; n++) {
+        filesout.push(files[n]);
+      }
+    }
+  }
+
+
   public static readJSONWithComments(file: string) {
     var jsons = fs.readFileSync(file, 'utf8');
     return JSON.parse(json_comments(jsons));

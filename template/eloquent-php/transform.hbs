@@ -7,14 +7,20 @@
 */
 
 {{!-- ****IMPORT SECTION**** --}}
-namespace {{#replace path '/' "\^" 'firstupper'}}{{/replace}};
+namespace {{replace path '/' "\^" 'firstupper'}}
 
 use Illuminate\Database\Eloquent\Model;
+{{#each models}}
+{{#ifattr attrs 'eloquent'}}
+use {{replace @root.path '/' "\^" 'firstupper'}}\\{{ name }};
+{{/ifattr}}
+{{/each}}
+
 
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-class {{ name }}DAO implemens {{ name }} extends Model
+class {{ name }}DAO extends Model implements {{ name }}
 {
   {{#ifnattr attrs 'eloquent.table'}}
   protected $table = '{{lowercase name}}';

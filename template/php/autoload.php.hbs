@@ -1,0 +1,17 @@
+<?php
+// PHP 5.3.0++
+spl_autoload_register(function ($class) {
+    $classMap = array(
+{{#each contexts}}
+{{#classmapeach this}}
+      '{{replace path '/' "\^" 'firstupper'}}\\{{ key }}' => __DIR__ . '/{{path}}/{{file}}.php',
+{{/classmapeach}}
+{{/each}}
+    );
+    if (isset($classMap[$class])) {
+        include $classMap[$class];
+    }
+});
+
+
+

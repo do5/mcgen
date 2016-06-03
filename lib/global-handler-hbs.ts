@@ -8,12 +8,19 @@ export interface HandlebarsContext extends def.ModelInfo {
   vars: { [key: string]: string };
   //Path model
   path: string;
-  nativeType: { [key: string]: NativeType };
-
+  //filename without ext
+  filename: string;
+  types: { [key: string]: NativeType };
+  typesinfile: { [key: string]: NativeType };
   func: {
     isSimpleType: (typeName: string) => boolean;
   }
 }
+
+export interface HandlebarsAddContext {
+  contexts: HandlebarsContext[];
+}
+
 
 function hb_attrfind(attrs: def.Atts[], val: string) {
   let arrDelim = val.split('.');
@@ -75,7 +82,7 @@ export var helpershbs: { [key: string]: Function } = {
     let context: HandlebarsContext = options.data.root;
     if (_.isUndefined(spl)) {
       if (context.func.isSimpleType(val)) return val;
-      let nt = context.nativeType[val]
+      let nt = context.types[val]
       if (_.isUndefined(nt)) return val;
       spl = map[name][nt];
       if (_.isUndefined(spl)) return val;
@@ -85,7 +92,7 @@ export var helpershbs: { [key: string]: Function } = {
 
   'ifenum': function (type, options) {
     let context: HandlebarsContext = options.data.root;
-    let nt = context.nativeType[type];
+    let nt = context.types[type];
     if (_.isUndefined(nt)) options.inverse(this);
     if (nt === 'enums') {
       return options.fn(this);
@@ -150,11 +157,13 @@ export var helpershbs: { [key: string]: Function } = {
   'ifnattr': function (attrs: def.Atts[], val: string, options) {
     return Handlebars.helpers['if'].call(this, !hb_attrfind(attrs, val), options);
   },
-
   'lowercase': function (str: string) {
     if (str && typeof str === "string") {
       return str.toLowerCase();
     }
     return '';
+  },
+  'dump': function (obj) {
+    return JSON.stringify(obj, null, '  ');
   }
 }

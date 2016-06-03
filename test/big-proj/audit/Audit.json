@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "models": [
+    {
+      "name": "Audit",
+      "description": "Object provides audit message",
+      "attrs": [
+        {
+          "id": "eloquent"
+        }
+      ],
+      "items": [
+        {
+          "name": "id",
+          "description": "Identifier",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "create_at",
+          "description": "Time of message",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "audit_type",
+          "description": "Type of message",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "current_user",
+          "description": "User name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "json_obj",
+          "description": "Message object in JSON format",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
