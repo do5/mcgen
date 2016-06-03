@@ -126,43 +126,54 @@ export class Model extends ErrorLast {
 
   private checkTypes() {
     //search type
-    let searchType = '';
+    let cursearchType = '';
 
     let check = (typeName: string): boolean => {
       if ($.isEmptyString(typeName)) return false;
-      searchType = typeName;
+      cursearchType = typeName;
       if (this.isSimpleType(typeName)) return true;
       return !_.isUndefined(this.types[typeName]);
     }
 
     var iserrres = (istype, model) => {
-      if (!istype) {
-        this.error(`Not found type ${searchType}`, model.$src);
+      if (!istype && !$.isEmptyString(cursearchType)) {
+        this.error(`Not found type ${cursearchType}`, model.$src);
         return true
       }
       return false;
     };
 
+    var beginSearch = <T>(check: T[]): boolean => {
+      cursearchType = '';
+      if (_.isArray(check) && check.length > 0) return true;
+      else return false;
+    }
+
     for (var key in this.modelsNative) {
       let imp_cur: def.ModelInfo = this.modelsNative[key];
 
       //Model test
-      let istype = _.some(imp_cur.models, (v) => {
-        if (check(v.basetype)) return true;
-        if (_.isUndefined(v.items) || (v.items.length == 0)) return true;
-        return _.some(v.items, (items) => check(items.type));
-      });
-      if (iserrres(istype, imp_cur)) return;
+      if (beginSearch(imp_cur.models)) {
+        let istype = _.some(imp_cur.models, (v) => {
+          if (check(v.basetype)) return true;
+          if (_.isUndefined(v.items) || (v.items.length == 0)) return true;
+          return _.some(v.items, (items) => check(items.type));
+        });
+        if (iserrres(istype, imp_cur)) return;
+      }
 
       //Contract test
-      istype = _.some(imp_cur.contracts, (v) => {
-        if (check(v.basetype)) return true;
-        if (_.isUndefined(v.methods) || (v.methods.length == 0)) return true;
-        return _.some(v.methods, (method) => {
-          if (_.isUndefined(method.args) || (method.args.length == 0)) return true;
-          return _.some(method.args, (arg) => check(arg.type));
+      if (beginSearch(imp_cur.contracts)) {
+        let istype = _.some(imp_cur.contracts, (v) => {
+          if (check(v.basetype)) return true;
+          if (_.isUndefined(v.methods) || (v.methods.length == 0)) return true;
+          return _.some(v.methods, (method) => {
+            if (_.isUndefined(method.args) || (method.args.length == 0)) return true;
+            return _.some(method.args, (arg) => check(arg.type));
+          });
         });
-      });
+        if (iserrres(istype, imp_cur)) return;
+      }
     }
   }
 

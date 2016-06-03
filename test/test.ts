@@ -23,6 +23,18 @@ Setting.postinit();
 Setting.mp_console = false;
 
 
+describe('check only enums', () => {
+  let _indir = path.join(indir, 'enums');
+  let _outdir = path.join(outdir, 'enums');
+  it('should ok', () => {
+    var model = new Model(_indir);
+    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+    let val = Setting.templates['php'];
+    assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+  });
+});
+
+
 describe('check eloquent', () => {
   let _indir = path.join(indir, 'eloquent');
   let _outdir = path.join(outdir, 'eloquent');
