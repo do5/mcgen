@@ -5,6 +5,7 @@
   },
   "exclude": [
     "test/.temp",
+    "test/items",
     "template",
     "shemas",
     "node_modules"
