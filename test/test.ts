@@ -1,10 +1,11 @@
-import {Utils} from '../lib/utils';
+import * as $ from '../lib/utils';
 import * as chai from 'chai';
 import {Setting, Ids}  from './../lib/setting';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import {Model} from './../lib/model';
 import * as _ from 'underscore';
+import { Tuls } from './test-utils';
 
 import {CmdUtils} from './../lib/cmd-utils';
 
@@ -12,7 +13,7 @@ import * as child_process from 'child_process';
 
 var assert = chai.assert;
 
-let indir = path.join(Setting.__root, 'test');
+let indir = path.join(Setting.__root, 'test', 'items');
 let outdir = path.join(indir, '.temp');
 fs.emptyDirSync(outdir);
 //Init
@@ -80,6 +81,7 @@ describe('Model import ok', () => {
     var model = new Model(_indir);
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     _.each(Setting.templates, (val, key) => {
+      val.getInfo()
       assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
     })
     Setting.mp_idsTemplate = {};
