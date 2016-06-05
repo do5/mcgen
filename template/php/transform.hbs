@@ -6,7 +6,7 @@
 * Generate info - version php: {{vars.ver}}
 */
 {{!-- ****IMPORT SECTION**** --}}
-namespace {{replace path '/' "\^" 'firstupper'}};
+namespace {{replace namespace '/' "\^" 'firstupper'}};
 
 {{#each imports}}
 use {{replace file '/' "\^"  'firstupper'}}\\{{type}};

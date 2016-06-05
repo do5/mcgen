@@ -6,11 +6,15 @@ import {NativeType} from './model'
 export interface HandlebarsContext extends def.ModelInfo {
   //Vars in file _info.json
   vars: { [key: string]: string };
-  //Path model
+  //namespace model
+  namespace: string;
+  //Path rel model
   path: string;
   //filename without ext
   filename: string;
   types: { [key: string]: NativeType };
+  //array namespaces on key imports.file
+  namespaces: { [file: string]: string };
   typesinfile: { [key: string]: NativeType };
   func: {
     isSimpleType: (typeName: string) => boolean;

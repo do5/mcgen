@@ -12,9 +12,6 @@ import * as child_process from 'child_process';
 
 var assert = chai.assert;
 
-var ss = _.isArray([1,2,3]);
-if (ss) console.warn();
-
 let indir = path.join(Setting.__root, 'test');
 let outdir = path.join(indir, '.temp');
 fs.emptyDirSync(outdir);

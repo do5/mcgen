@@ -13,7 +13,7 @@ return {
   'classmapeach': function (obj, options) {
     var out = '';
     _.each(obj.typesinfile, function (val, key) {
-      out += options.fn({ key: key, value: val, file: obj.filename, path: obj.path });
+      out += options.fn({ key: key, value: val, file: obj.filename, path: obj.path, namespace: obj.namespace });
     });
     return out;
   }

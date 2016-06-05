@@ -94,7 +94,6 @@ export class Template extends ErrorLast {
   }
 
   private _proccessEachFile(model: Model, destdir: string, addContext: HandlebarsAddContext): boolean {
-
     let file_trans = fs.readFileSync(path.join(this.pathTemplate, TRANSFORM_FILE), 'utf8');
 
     let transform: HandlebarsTemplateDelegate;
@@ -105,10 +104,10 @@ export class Template extends ErrorLast {
       return false;
     }
 
-    _.each(model.getModels(), (model_cur, path_model) => {
+    _.each(model.getModels(), (model_cur) => {
       if (this.isError()) return;
-      if (!$.isEmptyString(this.info.addname)) path_model += '-' + this.info.addname;
-      let model_file = path.join(destdir, path_model + this.info.ext);
+      let model_file = model.getPathOut(model_cur, destdir, this.info);
+
       if (!fs.existsSync(path.dirname(model_file))) {
         fs.emptyDirSync(path.dirname(model_file));
       }
@@ -125,15 +124,18 @@ export class Template extends ErrorLast {
 
         let context = <HandlebarsContext>model_cur;
         context.vars = defvars;
-        context.path = path.dirname(path_model);
-        context.filename = path.basename(path_model);
+        context.path = model_cur.$path;
+        context.filename = model_cur.$filename;
+        context.namespace = model_cur.$namespace;
         context.types = {};
+        context.namespaces = {};
         context.typesinfile = {};
         context.func = {
           isSimpleType: model.isSimpleType
         };
         _.each(model.getTypes(), (val, key) => context.types[key] = val.nativeType);
         _.each(Model.getModelTypes(model_cur), (val, key) => context.typesinfile[key] = val.nativeType);
+        _.each(model.getModels(), (minfo, id) => context.namespaces[id] = minfo.$namespace);
         addContext.contexts.push(context);
 
         let result = transform(context);

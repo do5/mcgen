@@ -17,7 +17,17 @@ export interface Atts {
 }
 
 export interface ModelInfo {
+  //Fill after load
+  //full path to the file
   $src: string,
+  //namespace
+  $namespace: string,
+  //filename without ext
+  $filename: string,
+  //path without filename
+  $path: string,
+
+
   imports: {
     file: string,
     type: string,

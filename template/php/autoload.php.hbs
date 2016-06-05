@@ -4,7 +4,7 @@ spl_autoload_register(function ($class) {
     $classMap = array(
 {{#each contexts}}
 {{#classmapeach this}}
-      '{{replace path '/' "\^" 'firstupper'}}\\{{ key }}' => __DIR__ . '/{{path}}/{{file}}.php',
+      '{{replace namespace '/' "\^" 'firstupper'}}\\{{ key }}' => __DIR__ . '/{{path}}/{{file}}.php',
 {{/classmapeach}}
 {{/each}}
     );

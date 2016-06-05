@@ -18,12 +18,12 @@ interface ModelTypes {
 }
 
 export class Model extends ErrorLast {
-  private modelsNative: { [path: string]: def.ModelInfo } = {};
+  private modelsNative: { [id: string]: def.ModelInfo } = {};
 
   //All types in all files
   private types: ModelTypes = {};
 
-  public getModels(): { [path: string]: def.ModelInfo } {
+  public getModels(): { [id: string]: def.ModelInfo } {
     return this.modelsNative;
   }
 
@@ -31,17 +31,63 @@ export class Model extends ErrorLast {
     super();
   }
 
-  private normalizeRel(file: string): string {
+  /*
+  * <firstnamespace><relpath>
+  */
+  private getModelNamespace(file: string, firstnamespace: string = ''): string {
+    if ($.isEmptyString(firstnamespace)) {
+      firstnamespace = path.basename(this.basedir)
+    }
+    let modelPath = this.getModelPath(file);
+    if ($.isEmptyString(modelPath)) {
+      return `${firstnamespace}`;
+
+    } else {
+      return `${firstnamespace}/${this.getModelPath(file)}`;
+    }
+  }
+
+  /*
+  * <filename.withoutext>
+  */
+  private getModelFilename(file: string): string {
     let ext = path.extname(file);
-    let result = path.relative(this.basedir, file).replace(ext, '').replace('\\', '/');
+
+    let result = path.basename(file).replace(ext, '');
     return result;
   }
 
-  private static chechDublication(mt: ModelTypes, name:string, mInfo: def.ModelInfo) {
-      let t = mt[name];
-      if (!_.isUndefined(t)) {
-        throw Error(`Duplication type ${name} in the file with the file '${$.relpath(t.model.$src)}' '${$.relpath(mInfo.$src)}' `);
-      }
+  /*
+  * <relpath>.<filename.withoutext>
+  */
+  private getModelId(file: string): string {
+    let ext = path.extname(file);
+    let result = path.relative(this.basedir, file).replace(ext, '').replace(/\\/g, '/');
+    return result;
+  }
+
+  /*
+  * <relpath>
+  */
+  private getModelPath(file: string): string {
+    let ext = path.extname(file);
+    let result = path.relative(this.basedir, path.dirname(file)).replace(ext, '').replace(/\\/g, '/');
+    return result;
+  }
+
+  public getPathOut(modelInfo: def.ModelInfo, destdir: string, info: def.InfoTemplate): string {
+    let result = path.relative(this.basedir, modelInfo.$src);
+    result = result.replace(path.extname(result), '');
+    if (!$.isEmptyString(info.addname)) result += '-' + info.addname;
+    result = path.join(destdir, result + info.ext);
+    return result;
+  }
+
+  private static chechDublication(mt: ModelTypes, name: string, mInfo: def.ModelInfo) {
+    let t = mt[name];
+    if (!_.isUndefined(t)) {
+      throw Error(`Duplication type ${name} in the file with the file '${$.relpath(t.model.$src)}' '${$.relpath(mInfo.$src)}' `);
+    }
   }
 
   private filltypes(mInfo: def.ModelInfo) {
@@ -91,7 +137,11 @@ export class Model extends ErrorLast {
         }
 
         mInfo.$src = files[n];
-        this.modelsNative[this.normalizeRel(files[n])] = mInfo;
+        mInfo.$namespace = this.getModelNamespace(files[n]);
+        mInfo.$path = this.getModelPath(files[n]);
+        mInfo.$filename = this.getModelFilename(files[n]);
+
+        this.modelsNative[this.getModelId(files[n])] = mInfo;
         try {
           this.filltypes(mInfo);
         } catch (e) {
