@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import {Model} from './../lib/model';
 import * as _ from 'underscore';
-import { Tuls } from './test-utils';
+import { Tuls as $t} from './test-utils';
 
 import {CmdUtils} from './../lib/cmd-utils';
 
@@ -25,12 +25,9 @@ describe('check big project', () => {
   let _indir = path.join(indir, 'big-proj');
   let _outdir = path.join(outdir, 'big-proj');
   it('should ok', () => {
-    var model = new Model(_indir);
-    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
-    let val = Setting.templates['php'];
-    assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
-    val = Setting.templates['eloquent-php'];
-    assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+    $t.eachTempl(_indir, _outdir, { 'php': {}, 'eloquent-php': {} }, (val) => {
+      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
+    });
   });
 });
 
@@ -97,8 +94,8 @@ describe('check example', () => {
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     _.each(Setting.templates, (val, key) => {
       assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
     })
-    Setting.mp_idsTemplate = {};
   });
 });
 

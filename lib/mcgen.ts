@@ -76,7 +76,7 @@ if (!model.proccess(Setting.validatorJSON)) {
   process.exit(-1);
 }
 
-_.each(Setting.integTemplates, (val, key) => {
+_.each(Setting.templates, (val, key) => {
   if (!_.isEmpty(Setting.mp_idsTemplate) && _.isUndefined(Setting.mp_idsTemplate[val.getId()])) return;
 
   $.consoleProccess(`Proccess '${val.getId()}' `);
