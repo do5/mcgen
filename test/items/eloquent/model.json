@@ -56,7 +56,7 @@
           "type": "string"
         },
         {
-          "name": "prop2",
+          "name": "prop4",
           "description": "desc",
           "type": "integer"
         }

@@ -1,0 +1,30 @@
+{
+
+  "consts": [
+    {
+      "name": "ConstName",
+      "description": "ConstName description",
+      "items": [
+        {
+          "name": "valInteger",
+          "type": "integer",
+          "value": 12
+        }
+      ]
+    }
+  ],
+
+  "models": [
+    {
+      "name": "UserInfo",
+      "basetype": "User",
+      "items": [
+        //this const 'ConstName' should't be 'type' in model.
+        {
+          "name": "UsedConst",
+          "type": "ConstName"
+        }
+      ]
+    }
+  ]
+}

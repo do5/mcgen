@@ -1,0 +1,17 @@
+{
+  "models": [
+    {
+      "name": "UserInfo",
+      "items": [
+        {
+          "name": "UsedConst",
+          "type": "boolean"
+        },
+        {
+          "name": "UsedConst",
+          "type": "integer"
+        }
+      ]
+    }
+  ]
+}

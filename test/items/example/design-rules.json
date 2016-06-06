@@ -23,10 +23,12 @@ Enumerator is not supported by all languages. If the enumerator does not support
       "items": [
         {
           "name": "On",
+          "description": "desc On value",
           "value": 1
         },
         {
           "name": "Off",
+          "description": "desc Off value",
           "value": 0
         }
       ]
@@ -37,18 +39,35 @@ Enumerator is not supported by all languages. If the enumerator does not support
   */
   "consts": [
     {
-      "name": "className",
-      "description": "className",
+      "name": "ConstName",
+      "description": "ConstName description",
       "items": [
         {
-          "name": "sss",
+          "name": "valInteger",
           "type": "integer",
+          "value": 12
+        },
+        {
+          "name": "valBoolean",
+          "type": "boolean",
           "value": true
         },
         {
-          "name": "ssss1",
-          "type": "boolean",
-          "value": 12
+          "name": "valInteger64",
+          "type": "integer64",
+          "value": 11111111111
+        },
+        {
+          "name": "valFloat",
+          "type": "float",
+          "description": "desc val1",
+          "value": 24.34
+        },
+        {
+          "name": "valString",
+          "type": "string",
+          "description": "desc valString",
+          "value": "body-string"
         }
       ]
     }
@@ -61,6 +80,51 @@ Enumerator is not supported by all languages. If the enumerator does not support
         {
           "name": "Address",
           "type": "string"
+        },
+        {
+          "name": "UsedEnum",
+          "type": "OnOff"
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "name": "BaseType",
+      "methods": [
+        {
+          "name": "GetData",
+          "description": "desc getData",
+          "result": {
+            "type": "integer",
+            "description": "result desc"
+          }
+        }
+      ]
+    },
+    {
+      "name": "MyContract",
+      "basetype": "BaseType",
+      "methods": [
+        {
+          "name": "getData",
+          "description": "desc getData",
+          "result": {
+            "type": "boolean",
+            "description": "result desc"
+          },
+          "args": [
+            {
+              "name": "arg1",
+              "type": "integer",
+              "description": "arg1 desc"
+            },
+            {
+              "name": "arg2",
+              "type": "string",
+              "description": "arg2 desc"
+            }
+          ]
         }
       ]
     }

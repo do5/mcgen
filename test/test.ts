@@ -14,11 +14,47 @@ import * as child_process from 'child_process';
 var assert = chai.assert;
 
 let indir = path.join(Setting.__root, 'test', 'items');
-let outdir = path.join(indir, '.temp');
-fs.emptyDirSync(outdir);
+let outdir = path.join(Setting.__root, 'test', '.temp');
+//fs.emptyDirSync(outdir);
 //Init
 Setting.postinit();
 Setting.mp_console = false;
+
+describe('model shouldt be properties duplication', () => {
+  let _indir = path.join(indir, 'dubl-model-prop');
+  let _outdir = path.join(outdir, 'dubl-model-prop');
+  it('should error', () => {
+    var model = new Model(_indir);
+    assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+  });
+});
+
+describe('check example', () => {
+  let _indir = path.join(indir, 'example');
+  let _outdir = path.join(outdir, 'example');
+  it('valid model', () => {
+    var model = new Model(_indir);
+    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+    _.each(Setting.templates, (val, key) => {
+      let f = val.proccess(model, _outdir);
+      assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
+    })
+  });
+});
+
+
+
+
+
+describe('const shouldt be type in model', () => {
+  let _indir = path.join(indir, 'const-type-err');
+  let _outdir = path.join(outdir, 'const-type-err');
+  it('should error', () => {
+    var model = new Model(_indir);
+    assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+  });
+});
 
 
 describe('check big project', () => {
@@ -85,19 +121,6 @@ describe('Model import ok', () => {
   });
 });
 
-
-describe('check example', () => {
-  let _indir = path.join(indir, 'example');
-  let _outdir = path.join(outdir, 'example');
-  it('valid model', () => {
-    var model = new Model(_indir);
-    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
-    _.each(Setting.templates, (val, key) => {
-      assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
-      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
-    })
-  });
-});
 
 describe('check type', () => {
   it('should error type', () => {
