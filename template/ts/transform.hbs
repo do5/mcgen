@@ -22,14 +22,21 @@ import { {{type}} } from "./{{file}}";
 
 {{!-- ****CONST SECTION**** --}}
 {{#each consts}}
+{{#if description}}
+/**
+ * {{ description }}
+ */
+{{/if}}
+export namespace {{name}} {
   {{#each items }}
   {{#if description}}
-/**
-* {{ description }}
-**/
+  /**
+   * {{ description }}
+   */
   {{/if}}
-export const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}};
+  export const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}};
   {{/each}}
+}
 {{/each}}
 
 {{!-- ****ENUMS SECTION**** --}}
@@ -39,13 +46,12 @@ export const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}};
 * {{ description }}
 **/
   {{/if}}
-export enum {{ name }}
-{
+export enum {{ name }} {
   {{#each items}}
   {{#if description}}
   /**
-  * {{ description }}
-  **/
+   * {{ description }}
+   */
   {{/if}}
   {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
   {{/each}}
@@ -54,17 +60,16 @@ export enum {{ name }}
 
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
-  {{#if description}}
+{{#if description}}
 /**
-* {{ description }}
-**/
-  {{/if}}
-export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
-{
+ * {{ description }}
+*/
+{{/if}}
+export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   {{#each items}}
-   /**
+  /**
    * {{#if required}}Required{{else}}Optional{{/if}}. {{ description }}
-   **/
+   */
   {{name}}: {{map 'maptype' type}};
   {{/each}}
 }
@@ -75,19 +80,18 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
 {{#each contracts}}
   {{#if description}}
 /**
-* {{ description }}
-**/
+ * {{ description }}
+ */
   {{/if}}
-export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
-{
+export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}} {
   {{#each methods}}
-   /**
+  /**
    * {{ description }}
    {{#each args}}
    * @param  { {{map 'maptype' type}} } {{name}} {{description}}
    {{/each}}
    {{#if result}}* returns {{result.type}} {{result.description}}{{/if}}
-   **/
+   */
   {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{name}}: {{map 'maptype' type}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{/if}};
   {{/each}}
 }

@@ -3,27 +3,25 @@
 
 
 /**
-* User model base
-**/
-export interface UserBase
-{
-   /**
+ * User model base
+*/
+export interface UserBase {
+  /**
    * Required. 
-   **/
+   */
   UserName: string;
-   /**
+  /**
    * Required. ads
-   **/
+   */
   Psw: boolean;
 }
 /**
-* User model
-**/
-export interface User extends UserBase 
-{
-   /**
+ * User model
+*/
+export interface User extends UserBase {
+  /**
    * Optional. 
-   **/
+   */
   EMail: string;
 }
 
