@@ -189,55 +189,48 @@ export class Model extends ErrorLast {
   }
 
   private checkTypes() {
-    //search type
-    let cursearchType = '';
-
-    let check = (typeName: string): boolean => {
-      if ($.isEmptyString(typeName)) return false;
-      cursearchType = typeName;
-      if (this.isSimpleType(typeName)) return true;
-      return !_.isUndefined(this.types[typeName]);
-    }
-
-    var iserrres = (istype, model) => {
-      if (!istype && !$.isEmptyString(cursearchType)) {
-        this.error(`Not found type ${cursearchType}`, model.$src);
-        return true
+    let check = (typeName: string, oblig: boolean, model: def.ModelInfo) => {
+      if ($.isEmptyString(typeName)) {
+        if (oblig) this.error(`Empty type`, model.$src);
+        return;
       }
-      return false;
-    };
-
-    var beginSearch = <T>(check: T[]): boolean => {
-      cursearchType = '';
-      if (_.isArray(check) && check.length > 0) return true;
-      else return false;
+      if (this.isSimpleType(typeName)) return;  //ok
+      let t = this.types[typeName];
+      if (_.isUndefined(t)) {
+        this.error(`Not found type '${typeName}'`, model.$src);
+        return;
+      }
+      //const type should't be 'type' in model.
+      if (t.nativeType === 'consts') {
+        this.error(`Const type '${typeName}' should't be type in other`, model.$src);
+        return;
+      }
+      return; //ok
     }
 
     for (var key in this.modelsNative) {
       let imp_cur: def.ModelInfo = this.modelsNative[key];
 
-      //Model test
-      if (beginSearch(imp_cur.models)) {
-        let istype = _.some(imp_cur.models, (v) => {
-          if (check(v.basetype)) return true;
-          if (_.isUndefined(v.items) || (v.items.length == 0)) return true;
-          return _.some(v.items, (items) => check(items.type));
+      //Model check
+      _.each(imp_cur.models, (model) => {
+        let prop = {};
+        check(model.basetype, false, imp_cur);
+        _.each(model.items, (item) => {
+          if (_.isObject(prop[item.name])) this.error(`Properties duplication '${item.name}' in '${item.type}'`, imp_cur.$src);
+          prop[item.name] = {};
+          check(item.type, true, imp_cur)
         });
-        if (iserrres(istype, imp_cur)) return;
-      }
+      });
+      if (this.isError()) return;
 
       //Contract test
-      if (beginSearch(imp_cur.contracts)) {
-        let istype = _.some(imp_cur.contracts, (v) => {
-          if (check(v.basetype)) return true;
-          if (_.isUndefined(v.methods) || (v.methods.length == 0)) return true;
-          return _.some(v.methods, (method) => {
-            if (_.isUndefined(method.args) || (method.args.length == 0)) return true;
-            return _.some(method.args, (arg) => check(arg.type));
-          });
+      _.each(imp_cur.contracts, (contract) => {
+        check(contract.basetype, false, imp_cur);
+        _.each(contract.methods, (method) => {
+          if (_.isObject(method.result)) check(method.result.type, true, imp_cur);
+          _.each(method.args, (arg) => check(arg.type, true, imp_cur));
         });
-        if (iserrres(istype, imp_cur)) return;
-      }
+      });
     }
   }
 

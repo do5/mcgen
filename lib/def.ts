@@ -69,7 +69,10 @@ export interface ModelInfo {
     methods: {
       name: string,
       description: string,
-      result: string,
+      result: {
+        type: string,
+        description: string
+      },
       args: {
         name: string,
         description: string,

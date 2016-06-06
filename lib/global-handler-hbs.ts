@@ -105,9 +105,17 @@ export var helpershbs: { [key: string]: Function } = {
     }
   },
 
-  'val': function (name, val: string, options) {
+  'impfiletons': function (fileImport:string, options) {
+    let context: HandlebarsContext = options.data.root;
+      return context.namespaces[fileImport];
+  },
+
+  /*
+  * depending on the value of string or takes Integer value in val
+  */
+  'val': function (name, quotes: string, options) {
     if (_.isString(name)) {
-      return val + name + val;
+      return quotes + name + quotes;
     }
     return name;
   },

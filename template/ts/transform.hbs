@@ -11,12 +11,13 @@
   Example: {{replace 'data/imp/next' '/' '.' 'firstupper'}} -> Data.Imp.Next
   Example: {{replace 'data/imp/next' '/' '.'}} -> Data.Imp.Next
 --}}
+
 {{!-- ****SERVICE SECTION**** --}}
-{{regmap 'maptype' 'boolean:boolean;integer,integer64,float:numeric;string:string' ~}}
+{{regmap 'maptype' 'boolean:boolean;integer,integer64,float:number;string:string' ~}}
 
 {{!-- ****IMPORT SECTION**** --}}
 {{#each imports}}
-import { {{type}} } from "./{{path}}/{{file}}";
+import { {{type}} } from "./{{file}}";
 {{/each}}
 
 {{!-- ****CONST SECTION**** --}}
@@ -27,7 +28,7 @@ import { {{type}} } from "./{{path}}/{{file}}";
 * {{ description }}
 **/
   {{/if}}
-export public const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}}
+export const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}};
   {{/each}}
 {{/each}}
 
@@ -42,10 +43,10 @@ export enum {{ name }}
 {
   {{#each items}}
   {{#if description}}
-   /**
-   * {{ description }}
-   **/
-   {{/if}}
+  /**
+  * {{ description }}
+  **/
+  {{/if}}
   {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
   {{/each}}
 }

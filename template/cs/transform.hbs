@@ -4,7 +4,7 @@
 {{!-- ****IMPORT SECTION**** --}}
 using System;
 {{#each imports}}
-using {{type}} = {{replace file '/' '.' 'firstupper'}}.{{type}};
+using {{type}} = {{replace (impfiletons file) '/' '.' 'firstupper'}}.{{type}};
 {{/each}}
 
 namespace {{replace namespace '/' '.' 'firstupper'}}
@@ -24,7 +24,7 @@ namespace {{replace namespace '/' '.' 'firstupper'}}
     /// {{ description }}
     /// </summary>
     {{/if}}
-    public const {{map 'typecs' type}} {{name}} = {{#val value "'"}}{{/val}};
+    public const {{map 'typecs' type}} {{name}} = {{#val value "\""}}{{/val}};
     {{/each}}
   }
   {{/each}}
@@ -40,9 +40,9 @@ namespace {{replace namespace '/' '.' 'firstupper'}}
   {
     {{#each items}}
     {{#if description}}
-    /**
-    * {{ description }}
-    **/
+    /// <summary>
+    /// {{ description }}
+    /// </summary>
     {{/if}}
     {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
     {{/each}}
@@ -56,13 +56,13 @@ namespace {{replace namespace '/' '.' 'firstupper'}}
   /// {{ description }}
   /// </summary>
   {{/if}}
-  public class {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
+  public partial class {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
   {
     {{#each items}}
     /// <summary>
     /// {{#if required}}Required{{else}}Optional{{/if}}. {{ description }}
     /// </summary>
-    public {{name}}: {{map 'typecs' type}};
+    public virtual {{map 'typecs' type}} {{name}} {get; set; }
     {{/each}}
   }
   {{/each}}
@@ -75,7 +75,7 @@ namespace {{replace namespace '/' '.' 'firstupper'}}
   /// {{ description }}
   /// </summary>
   {{/if}}
-  public interface {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
+  public partial interface {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
   {
     {{#each methods}}
     /// <summary>
@@ -85,7 +85,7 @@ namespace {{replace namespace '/' '.' 'firstupper'}}
     {{/each}}
     {{#if result}}/// <returns>{{result.description}}</returns>{{/if}}
     /// </summary>
-    {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}} {{name}}{{/each}}){{#if result}}: {{map 'typecs' result.type}}{{/if}};
+    {{#if result}}{{map 'typecs' result.type}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}} {{name}}{{/each}});
     {{/each}}
   }
   {{/each}}
