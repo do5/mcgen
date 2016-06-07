@@ -1,17 +1,13 @@
 <?php
 // PHP 5.3.0++
 spl_autoload_register(function ($class) {
-    $classMap = array(
+    switch ($class) {
 {{#each contexts}}
 {{#classmapeach this}}
-      '{{replace namespace '/' "\^" 'firstupper'}}\\{{ key }}DAO' => __DIR__ . '/{{path}}/{{file}}-eloquent.php',
+      case '{{to-ns namespace '/' "\^" 'firstupper'}}\\{{ key }}DAO':
+        include __DIR__ . '{{#if path}}/{{path}}{{/if}}/{{file}}.php';
+        break;
 {{/classmapeach}}
 {{/each}}
-    );
-    if (isset($classMap[$class])) {
-        include $classMap[$class];
     }
 });
-
-
-

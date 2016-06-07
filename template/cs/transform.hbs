@@ -4,10 +4,10 @@
 {{!-- ****IMPORT SECTION**** --}}
 using System;
 {{#each imports}}
-using {{type}} = {{replace (impfiletons file) '/' '.' 'firstupper'}}.{{type}};
+using {{type}} = {{to-ns (impfileto-ns file) '/' '.' 'firstupper'}}.{{type}};
 {{/each}}
 
-namespace {{replace namespace '/' '.' 'firstupper'}}
+namespace {{to-ns namespace '/' '.' 'firstupper'}}
 {
   {{!-- ****CONST SECTION**** --}}
   {{#each consts}}

@@ -10,6 +10,9 @@ import {Setting} from './setting';
 import {SUPPORT_EXT, ModelFile} from './model-file';
 
 export type NativeType = 'enums' | 'models' | 'consts' | 'contracts';
+
+export const FilePathNonSymbol: RegExp = /[-|@|#|$|%|^|&|*|(|)~|`|,|"|'|+|-]/g;
+
 interface ModelTypes {
   [typename: string]: {
     nativeType: NativeType;
@@ -199,6 +202,15 @@ export class Model extends ErrorLast {
       if (_.isUndefined(t)) {
         this.error(`Not found type '${typeName}'`, model.$src);
         return;
+      }
+
+      //check import if other a file
+      if (t.model != model) {
+        let findimp = _.findWhere(model.imports, { type: typeName });
+        if (_.isEmpty(findimp)) {
+          this.error(`Type '${typeName}' is not added to the import section`, model.$src);
+          return;
+        }
       }
       //const type should't be 'type' in model.
       if (t.nativeType === 'consts') {

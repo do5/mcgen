@@ -10,10 +10,17 @@ return {
       return options.fn(this);
     }
   },
+  'php7': function (ver, options) {
+    if (ver < 7) {
+      return options.inverse(this);
+    } else {
+      return options.fn(this);
+    }
+  },
   'classmapeach': function (obj, options) {
     var out = '';
     _.each(obj.typesinfile, function (val, key) {
-      out += options.fn({ key: key, value: val, file: obj.filename, path: obj.path, namespace: obj.namespace });
+      out += options.fn({ key: key, value: val, file: obj.filename, path: obj.path, namespace: obj.namespace, root: obj });
     });
     return out;
   }

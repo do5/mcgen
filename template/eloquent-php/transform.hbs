@@ -7,12 +7,12 @@
 */
 
 {{!-- ****IMPORT SECTION**** --}}
-namespace {{replace namespace '/' "\^" 'firstupper'}};
+namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
 use Illuminate\Database\Eloquent\Model;
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-use {{replace @root.path '/' "\^" 'firstupper'}}\\{{ name }};
+use {{to-ns @root.path '/' "\^" 'firstupper'}}\\{{ name }}Interface;
 {{/ifattr}}
 {{/each}}
 
@@ -20,7 +20,7 @@ use {{replace @root.path '/' "\^" 'firstupper'}}\\{{ name }};
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-class {{ name }}DAO extends Model implements {{ name }}
+class {{ name }}DAO extends Model implements {{ name }}Interface
 {
   {{#ifnattr attrs 'eloquent.table'}}
   protected $table = '{{lowercase name}}';

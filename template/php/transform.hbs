@@ -6,26 +6,29 @@
 * Generate info - version php: {{vars.ver}}
 */
 {{!-- ****IMPORT SECTION**** --}}
-namespace {{replace namespace '/' "\^" 'firstupper'}};
+namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
 {{#each imports}}
-use {{replace file '/' "\^"  'firstupper'}}\\{{type}};
+{{#ifmodeltype type 'models' @root}}
+use {{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}\\{{type}}Interface;
+{{else}}
+use {{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}\\{{type}};
+{{/ifmodeltype}}
 {{/each}}
 {{!-- ****CONST SECTION**** --}}
 {{#each consts}}
 {{#if description}}
 /**
-* {{{ description }}}
-*/
-
+ * {{{ description }}}
+ */
 {{/if}}
 interface {{name}}
 {
   {{#each items }}
   {{#if description}}
   /**
-  * @var {{map 'typephp' type}} {{{ description }}}
-  */
+   * {{{ description }}}
+   */
   {{/if}}
   const {{name}} = {{#val value "'"}}{{/val}};
   {{/each}}
@@ -36,16 +39,16 @@ interface {{name}}
 {{#each enums}}
 {{#if description}}
 /**
-* {{{ description }}}
-*/
+ * {{{ description }}}
+ */
 {{/if}}
 interface {{name}}
 {
   {{#each items }}
   {{#if description}}
   /**
-  * @var {{map 'typephp' type}} {{{ description }}}
-  */
+   * @var int {{{ description }}}
+   */
   {{/if}}
   const {{name}} = {{#val value "'"}}{{/val}};
   {{/each}}
@@ -55,17 +58,28 @@ interface {{name}}
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 /**
-* {{{ description }}}
+ * {{{ description }}}
 {{#each items}}
-* @property {{map 'typephp' type}} ${{name}} {{#if required}}Required. {{else}}Optional. {{/if}}{{#ifenum type}}Use interface {{type}}. {{/ifenum}}{{{ description }}}
+ * @property {{map 'typephp' type}} ${{name}} {{#if required}}Required. {{else}}Optional. {{/if}}{{#ifmodeltype type 'enums' @root}}Use interface {{type}}. {{/ifmodeltype}}{{{ description }}}
 {{/each}}
-*/
-interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
+ */
+interface {{ name }}Interface{{#if basetype}} extends {{basetype}}Interface {{/if}}
 {
-  /**
-  * PHP Magic Methods
-  */
   function __get($val);
+  function __set($key, $value);
+}
+
+class {{ name }} implements {{ name }}Interface
+{
+  public function __get($key)
+  {
+      return $this->$key;
+  }
+
+  public function __set($key, $value)
+  {
+      $this->$key = $value;
+  }
 }
 
 {{/each}}
@@ -73,21 +87,21 @@ interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
 {{#each contracts}}
 {{#if description}}
 /**
-* {{{ description }}}
-*/
+ * {{{ description }}}
+ */
 {{/if}}
 interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
 {
   {{#each methods}}
   /**
-  * {{{ description }}}
-  *
-  {{#each args}}
-  * @param {{map 'typephp' type}} ${{name}} {{description}}
-  {{/each}}
-  {{#if result}}* @return {{map 'typephp' result.type}} {{result.description}}</returns>{{/if}}
-  */
-  {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typephp' type}} ${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{map 'typephp' result.type}}{{/resphp}};
+   * {{{ description }}}
+   *
+   {{#each args}}
+   * @param {{map 'typephp' type}} ${{name}} {{description}}
+   {{/each}}
+   {{#if result}}* @return {{map 'typephp' result.type}} {{result.description}}{{/if}}
+   */
+  function {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#php7 @root.vars.ver}}{{map 'typephp' type}} {{/php7}}${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{map 'typephp' result.type}}{{/resphp}};
   {{/each}}
 }
 {{/each}}

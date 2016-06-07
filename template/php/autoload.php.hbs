@@ -1,17 +1,18 @@
 <?php
 // PHP 5.3.0++
 spl_autoload_register(function ($class) {
-    $classMap = array(
+    switch ($class) {
 {{#each contexts}}
 {{#classmapeach this}}
-      '{{replace namespace '/' "\^" 'firstupper'}}\\{{ key }}' => __DIR__ . '/{{path}}/{{file}}.php',
+      case '{{to-ns namespace '/' "\^" 'firstupper'}}\\{{ key }}':
+        include __DIR__ . '{{#if path}}/{{path}}{{/if}}/{{file}}.php';
+        break;
+      {{#ifmodeltype key 'models' root}}
+      case '{{to-ns namespace '/' "\^" 'firstupper'}}\\{{ key }}Interface':
+        include __DIR__ . '{{#if path}}/{{path}}{{/if}}/{{file}}.php';
+        break;
+      {{/ifmodeltype}}
 {{/classmapeach}}
 {{/each}}
-    );
-    if (isset($classMap[$class])) {
-        include $classMap[$class];
     }
 });
-
-
-

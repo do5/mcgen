@@ -1,5 +1,5 @@
-
 import { User } from "./auth/auth-model";
+import { BaseTypeExt } from "./auth/auth-model";
 
 /**
  * ConstName description
@@ -43,10 +43,10 @@ export interface UserInfo extends User {
 
 export interface BaseType {
   /**
-   * desc getData
+   * desc GetDataBase
    * returns integer result desc
    */
-  GetData(): number;
+  GetDataBase(): number;
 }
 export interface MyContract extends BaseType  {
   /**
@@ -55,5 +55,7 @@ export interface MyContract extends BaseType  {
    * @param  { string } arg2 arg2 desc
    * returns boolean result desc
    */
-  getData(arg1: number, arg2: string): boolean;
+  GetData(arg1: number, arg2: string): boolean;
+}
+export interface MyContractExt extends BaseTypeExt  {
 }

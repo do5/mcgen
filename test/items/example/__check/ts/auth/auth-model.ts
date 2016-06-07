@@ -1,7 +1,6 @@
 
 
 
-
 /**
  * User model base
 */
@@ -26,3 +25,10 @@ export interface User extends UserBase {
 }
 
 
+export interface BaseTypeExt {
+  /**
+   * desc GetDataBaseExt
+   * returns integer result desc
+   */
+  GetDataBaseExt(): number;
+}

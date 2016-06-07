@@ -14,13 +14,13 @@
           "name": "id",
           "description": "Identifier",
           "type": "integer",
-          "required": true
+          "required": false
         },
         {
           "name": "create_at",
           "description": "Time of message",
           "type": "string",
-          "required": true
+          "required": false
         },
         {
           "name": "audit_type",

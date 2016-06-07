@@ -2,6 +2,7 @@ import * as _ from  'underscore';
 import * as Handlebars from 'handlebars';
 import * as def from './def';
 import {NativeType} from './model'
+import {FilePathNonSymbol} from './../lib/model';
 
 export interface HandlebarsContext extends def.ModelInfo {
   //Vars in file _info.json
@@ -46,9 +47,14 @@ var map: {
 
 //!!!!! Be sure to use the 'function' as break 'this'
 export var helpershbs: { [key: string]: Function } = {
-  'replace': function (val, to_replace, replacement, cmd) {
+  /**
+   * To namespace from file path. Check and replace [-,$,#]
+   * #create-ns <val> <to_replace> <replacement> [cmd]
+   * Example: {{replace 'data/imp/next' '/' '.' 'firstupper'}} -> Data.Imp.Next
+   * Example: {{replace 'data/imp/next' '/' '.'}} -> Data.Imp.Next
+   */
+  'to-ns': function (val, to_replace, replacement, cmd) {
     replacement = (replacement || '').replace('\\^', '\\')
-    //Handlebars.log(1, "repl - " + _.isString(replacement));
     let res: string = (val || '').replace(to_replace, replacement);
     if (cmd === 'firstupper') {
       let newarr: string[] = [];
@@ -57,6 +63,9 @@ export var helpershbs: { [key: string]: Function } = {
         if (upper) {
           newarr.push(res[i].toUpperCase());
           upper = false;
+        }
+        else if (res[i].match(FilePathNonSymbol)) {
+          upper = true;
         }
         else {
           if (res[i] === replacement) upper = true;
@@ -68,50 +77,62 @@ export var helpershbs: { [key: string]: Function } = {
 
     return res;
   },
-
-  'regmap': function (name: string, valStr: string, options) {
-    let spl = valStr.split(';');
-    map[name] = {};
+  /**
+   * imports.file to namespace
+   */
+  'impfileto-ns': function (fileImport: string, options) {
+    let context: HandlebarsContext = options.data.root;
+    return context.namespaces[fileImport];
+  },
+  /**
+   * regmap <id_map> <param> - It used to reassign values
+   * @param  {string} id_map - Id map. The #map used <id_map>.
+   * @param  {string} param - format key1[,key2]:value1;key3:value2. if used {{map 'maptype' key1}} displays value1
+   */
+  'regmap': function (id_map: string, param: string, options) {
+    let spl = param.split(';');
+    map[id_map] = {};
     for (let i = 0; i < spl.length; i++) {
       let t = spl[i].split(':');
       let t_t = t[0].split(',');
       for (let n = 0; n < t_t.length; n++) {
-        map[name][t_t[n]] = t[1];
+        map[id_map][t_t[n]] = t[1];
       }
     }
   },
 
-  'map': function (name: string, val: string, options) {
-    let spl = map[name][val];
+  /**
+   * The method is used in a pair regmap
+   * @param  {string} id_map  - Id map. The #map used <id_map>.
+   * @param  {string} key - see regmap
+   */
+  'map': function (id_map: string, key: string, options) {
+    let spl = map[id_map][key];
     let context: HandlebarsContext = options.data.root;
     if (_.isUndefined(spl)) {
-      if (context.func.isSimpleType(val)) return val;
-      let nt = context.types[val]
-      if (_.isUndefined(nt)) return val;
-      spl = map[name][nt];
-      if (_.isUndefined(spl)) return val;
+      if (context.func.isSimpleType(key)) return key;
+      let nt = context.types[key]
+      if (_.isUndefined(nt)) return key;
+      spl = map[id_map][nt];
+      if (_.isUndefined(spl)) return key;
     }
     return spl;
   },
-
-  'ifenum': function (type, options) {
-    let context: HandlebarsContext = options.data.root;
+  'ifmodeltype': function (type, nativeType: NativeType, context: HandlebarsContext,  options) {
     let nt = context.types[type];
     if (_.isUndefined(nt)) options.inverse(this);
-    if (nt === 'enums') {
+    if (nt === nativeType) {
       return options.fn(this);
     } else {
       return options.inverse(this);
     }
   },
 
-  'impfiletons': function (fileImport:string, options) {
-    let context: HandlebarsContext = options.data.root;
-      return context.namespaces[fileImport];
-  },
-
-  /*
-  * depending on the value of string or takes Integer value in val
+  /**
+   * depending on the value of string or takes Integer value in val
+   * {{val <name> <quotes>} - It is used to output right values
+   * @param  {any} name
+   * @param  {string} quotes - type quotes '' or "".
   */
   'val': function (name, quotes: string, options) {
     if (_.isString(name)) {
@@ -135,7 +156,7 @@ export var helpershbs: { [key: string]: Function } = {
     return Handlebars.helpers['each'].call(this, arr, options);
   },
 
-  'iftype': function (val: any, type: 'array' | 'object' | 'boolean' | 'nimber' | 'string' | 'simle', options) {
+  'iftype': function (val: any, type: 'array' | 'object' | 'boolean' | 'number' | 'string' | 'simple', options) {
     let condition = false;
     switch (type) {
       case 'array':

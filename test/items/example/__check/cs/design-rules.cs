@@ -1,5 +1,6 @@
 using System;
 using User = Example.Auth.User;
+using BaseTypeExt = Example.Auth.BaseTypeExt;
 
 namespace Example
 {
@@ -49,10 +50,10 @@ namespace Example
   public partial interface BaseType
   {
     /// <summary>
-    /// desc getData
+    /// desc GetDataBase
     /// <returns>result desc</returns>
     /// </summary>
-    int GetData();
+    int GetDataBase();
   }
   public partial interface MyContract : BaseType 
   {
@@ -62,6 +63,9 @@ namespace Example
     /// <param name="arg2">arg2 desc</param>
     /// <returns>result desc</returns>
     /// </summary>
-    bool getData(int arg1, string arg2);
+    bool GetData(int arg1, string arg2);
+  }
+  public partial interface MyContractExt : BaseTypeExt 
+  {
   }
 }

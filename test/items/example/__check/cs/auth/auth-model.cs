@@ -30,4 +30,12 @@ namespace Example.Auth
   }
 
 
+  public partial interface BaseTypeExt
+  {
+    /// <summary>
+    /// desc GetDataBaseExt
+    /// <returns>result desc</returns>
+    /// </summary>
+    int GetDataBaseExt();
+  }
 }

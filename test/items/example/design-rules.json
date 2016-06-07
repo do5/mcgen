@@ -11,6 +11,10 @@
       "file": "auth/auth-model",
       //The imported data type can only be a 'model' and used as a parameter or inheritance
       "type": "User"
+    },
+    {
+      "file": "auth/auth-model",
+      "type": "BaseTypeExt"
     }
   ],
   /*
@@ -93,8 +97,8 @@ Enumerator is not supported by all languages. If the enumerator does not support
       "name": "BaseType",
       "methods": [
         {
-          "name": "GetData",
-          "description": "desc getData",
+          "name": "GetDataBase",
+          "description": "desc GetDataBase",
           "result": {
             "type": "integer",
             "description": "result desc"
@@ -107,7 +111,7 @@ Enumerator is not supported by all languages. If the enumerator does not support
       "basetype": "BaseType",
       "methods": [
         {
-          "name": "getData",
+          "name": "GetData",
           "description": "desc getData",
           "result": {
             "type": "boolean",
@@ -127,6 +131,10 @@ Enumerator is not supported by all languages. If the enumerator does not support
           ]
         }
       ]
+    },
+    {
+      "name": "MyContractExt",
+      "basetype": "BaseTypeExt"
     }
   ]
 }
