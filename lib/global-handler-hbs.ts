@@ -13,7 +13,12 @@ export interface HandlebarsContext extends def.ModelInfo {
   path: string;
   //filename without ext
   filename: string;
-  types: { [key: string]: NativeType };
+  types: {
+    [key: string]: {
+      nativeType: NativeType,
+      attrs: def.Attr[]
+    }
+  };
   //array namespaces on key imports.file
   namespaces: { [file: string]: string };
   typesinfile: { [key: string]: NativeType };
@@ -27,9 +32,9 @@ export interface HandlebarsAddContext {
 }
 
 
-function hb_attrfind(attrs: def.Atts[], val: string) {
+function hb_attrfind(attrs: def.Attr[], val: string) {
   let arrDelim = val.split('.');
-  let attr: def.Atts = _.find(attrs, (key) => {
+  let attr: def.Attr = _.find(attrs, (key) => {
     return _.isEqual(key.id, arrDelim[0])
   });
   let condition = !_.isEmpty(attr);
@@ -111,17 +116,20 @@ export var helpershbs: { [key: string]: Function } = {
     let context: HandlebarsContext = options.data.root;
     if (_.isUndefined(spl)) {
       if (context.func.isSimpleType(key)) return key;
-      let nt = context.types[key]
-      if (_.isUndefined(nt)) return key;
-      spl = map[id_map][nt];
+      let ntObj = context.types[key]
+      if (_.isUndefined(ntObj)) return key;
+      spl = map[id_map][ntObj.nativeType];
       if (_.isUndefined(spl)) return key;
     }
     return spl;
   },
-  'ifmodeltype': function (type, nativeType: NativeType, context: HandlebarsContext,  options) {
-    let nt = context.types[type];
-    if (_.isUndefined(nt)) options.inverse(this);
-    if (nt === nativeType) {
+  'ifmodeltype': function (type, nativeType: NativeType, context: HandlebarsContext, options) {
+    let ntObj = context.types[type];
+    if (_.isUndefined(ntObj)) {
+      options.inverse(this);
+      return;
+    }
+    if (ntObj.nativeType === nativeType) {
       return options.fn(this);
     } else {
       return options.inverse(this);
@@ -141,8 +149,8 @@ export var helpershbs: { [key: string]: Function } = {
     return name;
   },
 
-  'attrs-each': function (attrs: def.Atts[], val: string, options) {
-    let attr: def.Atts = _.find(attrs, (key) => key.id === val);
+  'attrs-each': function (attrs: def.Attr[], val: string, options) {
+    let attr: def.Attr = _.find(attrs, (key) => key.id === val);
 
     if (_.isEmpty(attr)) {
       return options.inverse(this);
@@ -184,10 +192,20 @@ export var helpershbs: { [key: string]: Function } = {
     return Handlebars.helpers['if'].call(this, condition, options);
   },
 
-  'ifattr': function (attrs: def.Atts[], val: string, options) {
+  'ifattr-type': function (typename: string, attr:string, context: HandlebarsContext, options) {
+    let hif = Handlebars.helpers['if'];
+
+    let ntObj = context.types[typename];
+    if (_.isUndefined(ntObj)) return hif.call(this, false, options);
+    if (_.isUndefined(ntObj.attrs)) return hif.call(this, false, options);
+
+    return hif.call(this, hb_attrfind(ntObj.attrs, attr), options);
+  },
+
+  'ifattr': function (attrs: def.Attr[], val: string, options) {
     return Handlebars.helpers['if'].call(this, hb_attrfind(attrs, val), options);
   },
-  'ifnattr': function (attrs: def.Atts[], val: string, options) {
+  'ifnattr': function (attrs: def.Attr[], val: string, options) {
     return Handlebars.helpers['if'].call(this, !hb_attrfind(attrs, val), options);
   },
   'lowercase': function (str: string) {

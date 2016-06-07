@@ -10,12 +10,13 @@
 namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
 use Illuminate\Database\Eloquent\Model;
+{{!--
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-use {{to-ns @root.path '/' "\^" 'firstupper'}}\\{{ name }}Interface;
+use {{to-ns @root.namespace '/' "\^" 'firstupper'}}\\{{ name }}Interface;
 {{/ifattr}}
 {{/each}}
-
+ --}}
 
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}

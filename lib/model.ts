@@ -16,6 +16,7 @@ export const FilePathNonSymbol: RegExp = /[-|@|#|$|%|^|&|*|(|)~|`|,|"|'|+|-]/g;
 interface ModelTypes {
   [typename: string]: {
     nativeType: NativeType;
+    attrs: def.Attr[],
     model: def.ModelInfo
   }
 }
@@ -102,16 +103,17 @@ export class Model extends ErrorLast {
 
   public static getModelTypes(mInfo: def.ModelInfo): ModelTypes {
     let result: ModelTypes = {};
-    let addtype = (name: string, nativeType: NativeType) => {
+    let addtype = (name: string, nativeType: NativeType, attrs: def.Attr[] = []) => {
       Model.chechDublication(result, name, mInfo);
       result[name] = {
         nativeType: nativeType,
+        attrs: attrs,
         model: mInfo
       };
     };
     _.each(mInfo.consts, (val) => addtype(val.name, 'consts'));
     _.each(mInfo.enums, (val) => addtype(val.name, 'enums'));
-    _.each(mInfo.models, (val) => addtype(val.name, 'models'));
+    _.each(mInfo.models, (val) => addtype(val.name, 'models', val.attrs));
     _.each(mInfo.contracts, (val) => addtype(val.name, 'contracts'));
     return result;
   }

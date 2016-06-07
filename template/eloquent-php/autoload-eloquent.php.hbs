@@ -4,9 +4,11 @@ spl_autoload_register(function ($class) {
     switch ($class) {
 {{#each contexts}}
 {{#classmapeach this}}
+     {{#ifattr-type key 'eloquent' root}}
       case '{{to-ns namespace '/' "\^" 'firstupper'}}\\{{ key }}DAO':
-        include __DIR__ . '{{#if path}}/{{path}}{{/if}}/{{file}}.php';
+        include __DIR__ . '{{#if path}}/{{path}}{{/if}}/{{file}}-eloquent.php';
         break;
+     {{/ifattr-type}}
 {{/classmapeach}}
 {{/each}}
     }

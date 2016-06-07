@@ -20,18 +20,19 @@ let outdir = path.join(Setting.__root, 'test', '.temp');
 Setting.postinit();
 Setting.mp_console = false;
 
-describe('check not import error', () => {
-  let _indir = path.join(indir, 'import', 'errornotadd');
-  let _outdir = path.join(outdir, 'import', 'errornotadd');
+describe('model shouldt be properties duplication', () => {
+  let _indir = path.join(indir, 'dubl-model-prop');
+  let _outdir = path.join(outdir, 'dubl-model-prop');
   it('should error', () => {
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
 });
 
-describe('model shouldt be properties duplication', () => {
-  let _indir = path.join(indir, 'dubl-model-prop');
-  let _outdir = path.join(outdir, 'dubl-model-prop');
+
+describe('check not import error', () => {
+  let _indir = path.join(indir, 'import', 'errornotadd');
+  let _outdir = path.join(outdir, 'import', 'errornotadd');
   it('should error', () => {
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
@@ -51,9 +52,6 @@ describe('check example', () => {
     })
   });
 });
-
-
-
 
 
 describe('const shouldt be type in model', () => {

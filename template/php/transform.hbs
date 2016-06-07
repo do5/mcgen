@@ -1,6 +1,5 @@
 {{!-- ****SERVICE SECTION**** --}}
 {{regmap 'typephp' 'boolean:bool;integer,integer64:int;float:float;string:string;enums:int' ~}}
-
 <?php
 /*
 * Generate info - version php: {{vars.ver}}
@@ -65,8 +64,6 @@ interface {{name}}
  */
 interface {{ name }}Interface{{#if basetype}} extends {{basetype}}Interface {{/if}}
 {
-  function __get($val);
-  function __set($key, $value);
 }
 
 class {{ name }} implements {{ name }}Interface

@@ -1,21 +1,21 @@
 {
-    "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
-    "enums": [
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "enums": [
+    {
+      "name": "AuditType",
+      "description": "Type of audit message",
+      "items": [
         {
-            "name": "AuditType",
-            "description": "Type of audit message",
-            "items": [
-                {
-                    "name": "UserLogin",
-                    "value": 1,
-                    "description": "User login"
-                },
-                {
-                    "name": "UserLogout",
-                    "value": 2,
-                    "description": "User logout"
-                }
-            ]
+          "name": "UserLogin",
+          "value": 1,
+          "description": "User login"
+        },
+        {
+          "name": "UserLogout",
+          "value": 2,
+          "description": "User logout"
         }
-    ]
+      ]
+    }
+  ]
 }

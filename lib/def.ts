@@ -11,7 +11,7 @@ export interface InfoTemplate {
   }[];
 }
 
-export interface Atts {
+export interface Attr {
   id: string,
   [key:string]: string|string[]
 }
@@ -55,7 +55,7 @@ export interface ModelInfo {
     name: string,
     basetype: string,
     description: string,
-    attr: Attr[];
+    attrs: Attr[];
     items: {
       name: string,
       type: string,

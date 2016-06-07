@@ -85,7 +85,7 @@ export class Template extends ErrorLast {
 
         fs.writeFileSync(outfile, result, 'utf8');
       } catch (err) {
-        this.error(`Error transform ${err.message}`, files[i]);
+        this.error(`Error transform: ${err.message}`, files[i]);
         return false;
       }
     }
@@ -100,7 +100,7 @@ export class Template extends ErrorLast {
     try {
       transform = Handlebars.compile(file_trans);
     } catch (err) {
-      this.error(`Error transform ${err.message}`, file_trans);
+      this.error(`Error transform: ${err.message}`, file_trans);
       return false;
     }
 
@@ -133,7 +133,9 @@ export class Template extends ErrorLast {
         context.func = {
           isSimpleType: model.isSimpleType
         };
-        _.each(model.getTypes(), (val, key) => context.types[key] = val.nativeType);
+        _.each(model.getTypes(), (val, key) => {
+          context.types[key] = { nativeType: val.nativeType, attrs: val.attrs };
+        });
         _.each(Model.getModelTypes(model_cur), (val, key) => context.typesinfile[key] = val.nativeType);
         _.each(model.getModels(), (minfo, id) => context.namespaces[id] = minfo.$namespace);
         addContext.contexts.push(context);
@@ -146,7 +148,7 @@ export class Template extends ErrorLast {
         $.consoleProccessCompil('Compilation', model_file);
         fs.writeFileSync(model_file, result, 'utf8');
       } catch (err) {
-        this.error(`Error transform ${err.message}`, model_file);
+        this.error(`Error transform: ${err.message}`, model_file);
         fs.writeFileSync(model_file, err, 'utf8');
         return;
       }

@@ -20,7 +20,7 @@
           "name": "create_at",
           "description": "Time of message",
           "type": "string",
-          "required": false
+          "required": true
         },
         {
           "name": "audit_type",
