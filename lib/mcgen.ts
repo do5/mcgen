@@ -10,7 +10,8 @@ import {Utils as $}  from  './utils';
 import * as _ from 'underscore';
 
 
-let package_json = fs.readJsonSync(path.join(Setting.__root, 'package.json'));
+let package_json = fs.readJsonSync(path.join(__dirname, '..', 'package.json'));
+
 let cmd = new CmdUtils();
 
 program
