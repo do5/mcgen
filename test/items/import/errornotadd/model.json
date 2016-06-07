@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "contracts": [
+    {
+      "name": "MyContractExt",
+      "basetype": "BaseTypeExt"
+    }
+  ]
+}
