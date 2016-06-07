@@ -1,6 +1,6 @@
 {
   "name": "mcgen",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.12",
   "description": "Multi code generator - a utility to create a unified data model for different programming languages",
   "main": "lib/mcgen.js",
   "bin": {
@@ -19,15 +19,13 @@
     "CHANGELOG.md",
     "ROADMAP.md",
     "README.md",
-    "tsconfig.json",
-    "typings.json",
-    "lib/",
+    "lib/**/*.js",
     "shemas/",
     "template/",
     "bin/"
   ],
   "scripts": {
-    "postinstall": "typings install && tsc",
+    "first": "typings install && tsc",
     "prepublish": "npm run build && npm run test",
     "pretest": "",
     "test": "mocha",
