@@ -1,6 +1,6 @@
 {
   "name": "mcgen",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "description": "Multi code generator - a utility to create a unified data model for different programming languages",
   "main": "lib/mcgen.js",
   "bin": {
@@ -19,6 +19,8 @@
     "CHANGELOG.md",
     "ROADMAP.md",
     "README.md",
+    "tsconfig.json",
+    "typings.json",
     "lib/",
     "shemas/",
     "template/",
