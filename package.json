@@ -1,6 +1,6 @@
 {
   "name": "mcgen",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "Multi code generator - a utility to create a unified data model for different programming languages",
   "main": "lib/mcgen.js",
   "bin": {
@@ -14,9 +14,16 @@
   "bugs": {
     "url": "https://github.com/do5/mcgen/issues"
   },
-  "directories": {
-    "test": "test"
-  },
+  "files": [
+    "LICENSE",
+    "CHANGELOG.md",
+    "ROADMAP.md",
+    "README.md",
+    "lib/",
+    "shemas/",
+    "template/",
+    "bin/"
+  ],
   "scripts": {
     "postinstall": "typings install && tsc",
     "prepublish": "npm run build && npm run test",
@@ -36,7 +43,6 @@
     "jsen": "^0.6.1",
     "strip-json-comments": "^2.0.1",
     "underscore": "^1.8.3",
-
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
   },
