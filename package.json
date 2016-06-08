@@ -20,6 +20,7 @@
     "ROADMAP.md",
     "README.md",
     "lib/**/*.js",
+    "test/items/",
     "shemas/",
     "template/",
     "bin/"

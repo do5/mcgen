@@ -48,7 +48,7 @@ program.command('init <dir>')
   .action(function (dir, options) {
     let sdir = dir;
     dir = cmd.emptydir(dir);
-    fs.copySync(path.join(Setting.__root, 'test/example'), dir);
+    fs.copySync(path.join(Setting.test_items_dir, 'example'), dir);
     console.log(`Project successfully created.`);
     console.log(`To use: '${program.name()} --indir ${sdir} --outdir <outdir>'`);
     console.log(`We recommend adding a file 'package.json' script "build-mcgen": "${program.name()} --indir ${sdir} --outdir <outdir>"`);

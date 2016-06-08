@@ -13,8 +13,8 @@ import * as child_process from 'child_process';
 
 var assert = chai.assert;
 
-let indir = path.join(Setting.__root, 'test', 'items');
-let outdir = path.join(Setting.__root, 'test', '.temp');
+let indir = path.join(Setting.test_items_dir);
+let outdir = path.join(Setting.test_out_dir);
 //fs.emptyDirSync(outdir);
 //Init
 Setting.postinit();
