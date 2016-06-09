@@ -19,7 +19,7 @@ export class Tuls {
   }
 
   public static assertCmpText(indir: string, outdir: string, infoTemplate: def.InfoTemplate) {
-    let indirob = path.join(indir, '__check__', infoTemplate.ext.substr(1));
+    let indirob = path.join(indir, '__check__', infoTemplate.id.substr(1));
     if (fs.existsSync(indirob)) {
       let filesout: string[] = [];
       $.readAbsFileRec([indirob], filesout, [infoTemplate.ext]);

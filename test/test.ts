@@ -15,7 +15,7 @@ var assert = chai.assert;
 
 let indir = path.join(Setting.test_items_dir);
 let outdir = path.join(Setting.test_out_dir);
-//fs.emptyDirSync(outdir);
+fs.emptyDirSync(outdir);
 //Init
 Setting.postinit();
 Setting.mp_console = false;
