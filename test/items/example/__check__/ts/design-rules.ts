@@ -42,6 +42,10 @@ export interface UserInfo extends User {
    * Required. 
    */
   Point: boolean;
+  /**
+   * Required. 
+   */
+  AnyVal: any[];
 }
 
 
@@ -57,9 +61,17 @@ export interface MyContract extends BaseType  {
    * desc getData
    * @param  { number } arg1 arg1 desc
    * @param  { string } arg2 arg2 desc
+   * @param  { string[] } arg3arr arg3arr desc
    * returns boolean result desc
    */
-  GetData(arg1: number, arg2: string): boolean;
+  GetData(arg1: number, arg2: string, arg3arr: string[]): boolean;
+  /**
+   * desc getDataArr
+   * @param  { number[] } arg1arr arg1 desc
+   * @param  { string[] } arg2arr arg3arr desc
+   * returns UserInfo[] result desc
+   */
+  GetDataArr(arg1arr: number[], arg2arr: string[]): UserInfo[];
 }
 export interface MyContractExt extends BaseTypeExt  {
 }

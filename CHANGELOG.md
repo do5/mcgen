@@ -1,4 +1,16 @@
-## 1.0.0-beta.13 (2016-05-30)
+## 1.0.0-beta.14 (2016-06-09)
+
+Features:
+
+  - add type any. ts:object,php:mixed,ts:any
+  - add type array
+  ```json
+  "name": "PointArray",
+  "array": "true",
+  "type": "boolean"
+```
+
+## 1.0.0-beta.13 (2016-06-09)
 
 Features:
 

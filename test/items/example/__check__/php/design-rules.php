@@ -41,6 +41,7 @@ interface OnOff
  * @property string $Address 
  * @property int $UsedEnum (optional) Use interface OnOff. 
  * @property bool $Point 
+ * @property mixed[] $AnyVal 
  */
 interface UserInfoInterface extends UserInterface 
 {
@@ -75,9 +76,18 @@ interface MyContract extends BaseType
    *
    * @param int $arg1 arg1 desc
    * @param string $arg2 arg2 desc
+   * @param string[] $arg3arr arg3arr desc
    * @return bool result desc
    */
-  function GetData(int $arg1, string $arg2): bool;
+  function GetData(int $arg1, string $arg2, array $arg3arr): bool;
+  /**
+   * desc getDataArr
+   *
+   * @param int[] $arg1arr arg1 desc
+   * @param string[] $arg2arr arg3arr desc
+   * @return UserInfo[] result desc
+   */
+  function GetDataArr(array $arg1arr, array $arg2arr): array;
 }
 interface MyContractExt extends BaseTypeExt 
 {

@@ -19,15 +19,15 @@ export class Tuls {
   }
 
   public static assertCmpText(indir: string, outdir: string, infoTemplate: def.InfoTemplate) {
-    let indirob = path.join(indir, '__check__', infoTemplate.id.substr(1));
+    let indirob = path.join(indir, '__check__', infoTemplate.id);
     if (fs.existsSync(indirob)) {
       let filesout: string[] = [];
       $.readAbsFileRec([indirob], filesout, [infoTemplate.ext]);
       _.each(filesout, (val) => {
         let outfile = path.relative(indirob, val);
         outfile = path.join(outdir, outfile);
-        if (!fs.existsSync(outfile)) throw Error(`Not found file ${outfile}. It must conform to the model sample ${indirob}`);
-        if (this.min(outfile) !== this.min(val)) throw Error(`File ${outfile} do not match . It must conform to the model sample ${indirob}`);
+        if (!fs.existsSync(outfile)) throw Error(`${infoTemplate.id}. Not found file ${outfile}. It must conform to the model sample ${indirob}`);
+        if (this.min(outfile) !== this.min(val)) throw Error(`${infoTemplate.id}. File ${outfile} do not match . It must conform to the model sample ${indirob}`);
       });
     }
   }

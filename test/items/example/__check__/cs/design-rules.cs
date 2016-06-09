@@ -48,6 +48,10 @@ namespace Example
     /// Required. 
     /// </summary>
     public virtual bool Point {get; set; }
+    /// <summary>
+    /// Required. 
+    /// </summary>
+    public virtual object[] AnyVal {get; set; }
   }
 
 
@@ -65,9 +69,17 @@ namespace Example
     /// desc getData
     /// <param name="arg1">arg1 desc</param>
     /// <param name="arg2">arg2 desc</param>
+    /// <param name="arg3arr">arg3arr desc</param>
     /// <returns>result desc</returns>
     /// </summary>
-    bool GetData(int arg1, string arg2);
+    bool GetData(int arg1, string arg2, string[] arg3arr);
+    /// <summary>
+    /// desc getDataArr
+    /// <param name="arg1arr">arg1 desc</param>
+    /// <param name="arg2arr">arg3arr desc</param>
+    /// <returns>result desc</returns>
+    /// </summary>
+    UserInfo[] GetDataArr(int[] arg1arr, string[] arg2arr);
   }
   public partial interface MyContractExt : BaseTypeExt 
   {

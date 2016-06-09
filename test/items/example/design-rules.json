@@ -94,6 +94,11 @@ Enumerator is not supported by all languages. If the enumerator does not support
         {
           "name": "Point",
           "type": "boolean"
+        },
+        {
+          "name": "AnyVal",
+          "array": true,
+          "type": "any"
         }
       ]
     }
@@ -133,6 +138,35 @@ Enumerator is not supported by all languages. If the enumerator does not support
               "name": "arg2",
               "type": "string",
               "description": "arg2 desc"
+            },
+            {
+              "name": "arg3arr",
+              "array": true,
+              "type": "string",
+              "description": "arg3arr desc"
+            }
+          ]
+        },
+        {
+          "name": "GetDataArr",
+          "description": "desc getDataArr",
+          "result": {
+            "type": "UserInfo",
+            "array": true,
+            "description": "result desc"
+          },
+          "args": [
+            {
+              "name": "arg1arr",
+              "array": true,
+              "type": "integer",
+              "description": "arg1 desc"
+            },
+            {
+              "name": "arg2arr",
+              "array": true,
+              "type": "string",
+              "description": "arg3arr desc"
             }
           ]
         }

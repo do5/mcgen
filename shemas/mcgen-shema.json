@@ -11,7 +11,8 @@
         "integer",
         "integer64",
         "float",
-        "string"
+        "string",
+        "any"
       ]
     },
     "stringOrArr": {
@@ -198,6 +199,9 @@
                 "type": {
                   "$ref": "#/definitions/typeBoth"
                 },
+                "array": {
+                  "type": "boolean"
+                },
                 "required": {
                   "type": "boolean",
                   "default": true
@@ -255,6 +259,9 @@
                       },
                       "type": {
                         "$ref": "#/definitions/typeBoth"
+                      },
+                      "array": {
+                        "type": "boolean"
                       }
                     }
                   },
@@ -269,6 +276,9 @@
                   "properties": {
                     "type": {
                       "$ref": "#/definitions/typeBoth"
+                    },
+                    "array": {
+                      "type": "boolean"
                     },
                     "description": {
                       "type": "string"

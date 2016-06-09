@@ -1,5 +1,5 @@
 {{!-- ****SERVICE SECTION**** --}}
-{{regmap 'maptype' 'boolean:boolean;integer,integer64,float:number;string:string' ~}}
+{{regmap 'maptype' 'boolean:boolean;integer,integer64,float:number;string:string;any:any' ~}}
 
 {{!-- ****IMPORT SECTION**** --}}
 {{#each imports}}
@@ -56,7 +56,7 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   /**
    * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
    */
-  {{name}}{{#ifn-required}}?{{/ifn-required}}: {{map 'maptype' type}};
+  {{name}}{{#ifn-required}}?{{/ifn-required}}: {{map 'maptype' type}}{{#if array}}[]{{/if}};
   {{/each}}
 }
 {{/each}}
@@ -74,11 +74,11 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}} {
   /**
    * {{ description }}
    {{#each args}}
-   * @param  { {{map 'maptype' type}} } {{name}} {{description}}
+   * @param  { {{map 'maptype' type}}{{#if array}}[]{{/if}} } {{name}} {{description}}
    {{/each}}
-   {{#if result}}* returns {{result.type}} {{result.description}}{{/if}}
+   {{#if result}}* returns {{result.type}}{{#if result.array}}[]{{/if}} {{result.description}}{{/if}}
    */
-  {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{name}}: {{map 'maptype' type}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{/if}};
+  {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{name}}: {{map 'maptype' type}}{{#if array}}[]{{/if}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{#if result.array}}[]{{/if}}{{/if}};
   {{/each}}
 }
 {{/each}}

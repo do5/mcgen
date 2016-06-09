@@ -1,5 +1,5 @@
 {{!-- ****SERVICE SECTION**** --}}
-{{regmap 'typephp' 'boolean:bool;integer,integer64:int;float:float;string:string;enums:int' ~}}
+{{regmap 'typephp' 'boolean:bool;integer,integer64:int;float:float;string:string;any:mixed;enums:int' ~}}
 <?php
 /*
 * Generate info - version php: {{vars.ver}}
@@ -59,7 +59,7 @@ interface {{name}}
 /**
  * {{{ description }}}
 {{#each items}}
- * @property {{map 'typephp' type}} ${{name}} {{#ifn-required}}(optional) {{/ifn-required}}{{#ifmodeltype type 'enums' @root}}Use interface {{type}}. {{/ifmodeltype}}{{{ description }}}
+ * @property {{map 'typephp' type}}{{#if array}}[]{{/if}} ${{name}} {{#ifn-required}}(optional) {{/ifn-required}}{{#ifmodeltype type 'enums' @root}}Use interface {{type}}. {{/ifmodeltype}}{{{ description }}}
 {{/each}}
  */
 interface {{ name }}Interface{{#if basetype}} extends {{basetype}}Interface {{/if}}
@@ -94,11 +94,11 @@ interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
    * {{{ description }}}
    *
    {{#each args}}
-   * @param {{map 'typephp' type}} ${{name}} {{description}}
+   * @param {{map 'typephp' type}}{{#if array}}[]{{/if}} ${{name}} {{description}}
    {{/each}}
-   {{#if result}}* @return {{map 'typephp' result.type}} {{result.description}}{{/if}}
+   {{#if result}}* @return {{map 'typephp' result.type}}{{#if result.array}}[]{{/if}} {{result.description}}{{/if}}
    */
-  function {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#php7 @root.vars.ver}}{{map 'typephp' type}} {{/php7}}${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{map 'typephp' result.type}}{{/resphp}};
+  function {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#php7 @root.vars.ver}}{{#if array}}array{{else}}{{map 'typephp' type}}{{/if}} {{/php7}}${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{#if result.array}}array{{else}}{{map 'typephp' result.type}}{{/if}}{{/resphp}};
   {{/each}}
 }
 {{/each}}

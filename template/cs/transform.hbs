@@ -1,5 +1,5 @@
 {{!-- ****SERVICE SECTION**** --}}
-{{#regmap 'typecs' 'boolean:bool;integer:int;integer64:Int64;float:double;string:string' ~}}{{/regmap ~}}
+{{#regmap 'typecs' 'boolean:bool;integer:int;integer64:Int64;float:double;string:string;any:object' ~}}{{/regmap ~}}
 
 {{!-- ****IMPORT SECTION**** --}}
 using System;
@@ -62,7 +62,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     /// <summary>
     /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
     /// </summary>
-    public virtual {{map 'typecs' type}}{{#ifn-required}}?{{/ifn-required}} {{name}} {get; set; }
+    public virtual {{map 'typecs' type}}{{#if array}}[]{{/if}}{{#ifn-required}}?{{/ifn-required}} {{name}} {get; set; }
     {{/each}}
   }
   {{/each}}
@@ -85,7 +85,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{/each}}
     {{#if result}}/// <returns>{{result.description}}</returns>{{/if}}
     /// </summary>
-    {{#if result}}{{map 'typecs' result.type}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}} {{name}}{{/each}});
+    {{#if result}}{{map 'typecs' result.type}}{{#if result.array}}[]{{/if}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}}{{#if array}}[]{{/if}} {{name}}{{/each}});
     {{/each}}
   }
   {{/each}}
