@@ -14,6 +14,19 @@
   "bugs": {
     "url": "https://github.com/do5/mcgen/issues"
   },
+  "keywords": [
+    "code",
+    "multicode",
+    "generation",
+    "generate",
+    "php",
+    "typescript",
+    "ts",
+    "swift",
+    "java",
+    "javascript",
+    "eloquent"
+  ],
   "files": [
     "LICENSE",
     "CHANGELOG.md",
