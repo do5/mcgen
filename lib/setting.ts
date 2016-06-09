@@ -22,11 +22,11 @@ export class Setting {
   public static mp_console: boolean = true;
 
   //Path
-  public static __root = path.normalize(require('app-root-dir').get());
-  public static templ_dir = path.normalize(path.join(__dirname, '..', 'template'));
-  public static test_items_dir = path.normalize(path.join(__dirname, '..', 'test', 'items'));
-  public static test_out_dir = path.normalize(path.join(__dirname, '..', 'test', '.temp'));
-  public static shema_file = path.normalize(path.join(__dirname, '..', 'shemas', 'mcgen-shema.json'));
+  public static __root = require('app-root-dir').get();
+  public static templ_dir = path.join(__dirname, '..', 'template');
+  public static test_items_dir = path.join(__dirname, '..', 'test', 'items');
+  public static test_out_dir = path.join(__dirname, '..', 'test', '.temp');
+  public static shema_file = path.join(__dirname, '..', 'shemas', 'mcgen-shema.json');
 
 
   //--Eval in bootstrap module

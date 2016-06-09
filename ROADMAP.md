@@ -13,7 +13,6 @@ might still be missing.
    }
 `
 ### add watch
-### add ignory __check
 
 ## next version
 ### file setting analog tsconfig.json in folder out
