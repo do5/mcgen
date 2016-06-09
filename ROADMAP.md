@@ -1,4 +1,4 @@
-## 1.0.0-beta.15
+## 1.0.0-beta.16
 
 Features:
   - multi out should be with <id-tempalate>  
