@@ -37,13 +37,17 @@ namespace Example
   public partial class UserInfo : User 
   {
     /// <summary>
-    /// Optional. 
+    /// Required. 
     /// </summary>
     public virtual string Address {get; set; }
     /// <summary>
     /// Optional. 
     /// </summary>
-    public virtual OnOff UsedEnum {get; set; }
+    public virtual OnOff? UsedEnum {get; set; }
+    /// <summary>
+    /// Required. 
+    /// </summary>
+    public virtual bool Point {get; set; }
   }
 
 

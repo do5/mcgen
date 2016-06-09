@@ -83,11 +83,17 @@ Enumerator is not supported by all languages. If the enumerator does not support
       "items": [
         {
           "name": "Address",
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         {
           "name": "UsedEnum",
-          "type": "OnOff"
+          "type": "OnOff",
+          "required": false
+        },
+        {
+          "name": "Point",
+          "type": "boolean"
         }
       ]
     }

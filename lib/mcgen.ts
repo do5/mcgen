@@ -52,7 +52,7 @@ program.command('init <dir>')
     fs.removeSync(path.join(dir,'__check__'));
     console.log(`Project successfully created.`);
     console.log(`To use: '${program.name()} --indir ${sdir} --outdir <outdir>'`);
-    console.log(`We recommend adding a file 'package.json' script "build-mcgen": "${program.name()} --indir ${sdir} --outdir <outdir>"`);
+    console.log(`We recommend add in a file 'package.json' => script: {"build-mcgen": "${program.name()} --indir ${sdir} --outdir <outdir>"}`);
     process.exit(0);
   });
 

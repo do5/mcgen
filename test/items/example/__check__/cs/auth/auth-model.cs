@@ -24,7 +24,7 @@ namespace Example.Auth
   public partial class User : UserBase 
   {
     /// <summary>
-    /// Optional. 
+    /// Required. 
     /// </summary>
     public virtual string EMail {get; set; }
   }

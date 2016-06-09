@@ -60,9 +60,9 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
   {
     {{#each items}}
     /// <summary>
-    /// {{#if required}}Required{{else}}Optional{{/if}}. {{ description }}
+    /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
     /// </summary>
-    public virtual {{map 'typecs' type}} {{name}} {get; set; }
+    public virtual {{map 'typecs' type}}{{#ifn-required}}?{{/ifn-required}} {{name}} {get; set; }
     {{/each}}
   }
   {{/each}}

@@ -19,7 +19,7 @@ export interface UserBase {
 */
 export interface User extends UserBase {
   /**
-   * Optional. 
+   * Required. 
    */
   EMail: string;
 }

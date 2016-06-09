@@ -59,7 +59,7 @@ interface {{name}}
 /**
  * {{{ description }}}
 {{#each items}}
- * @property {{map 'typephp' type}} ${{name}} {{#if required}}Required. {{else}}Optional. {{/if}}{{#ifmodeltype type 'enums' @root}}Use interface {{type}}. {{/ifmodeltype}}{{{ description }}}
+ * @property {{map 'typephp' type}} ${{name}} {{#ifn-required}}(optional) {{/ifn-required}}{{#ifmodeltype type 'enums' @root}}Use interface {{type}}. {{/ifmodeltype}}{{{ description }}}
 {{/each}}
  */
 interface {{ name }}Interface{{#if basetype}} extends {{basetype}}Interface {{/if}}

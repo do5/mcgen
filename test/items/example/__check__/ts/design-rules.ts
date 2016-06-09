@@ -31,13 +31,17 @@ export enum OnOff {
 
 export interface UserInfo extends User {
   /**
-   * Optional. 
+   * Required. 
    */
   Address: string;
   /**
    * Optional. 
    */
-  UsedEnum: OnOff;
+  UsedEnum?: OnOff;
+  /**
+   * Required. 
+   */
+  Point: boolean;
 }
 
 

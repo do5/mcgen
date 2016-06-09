@@ -54,9 +54,9 @@ export enum {{ name }} {
 export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   {{#each items}}
   /**
-   * {{#if required}}Required{{else}}Optional{{/if}}. {{ description }}
+   * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
    */
-  {{name}}: {{map 'maptype' type}};
+  {{name}}{{#ifn-required}}?{{/ifn-required}}: {{map 'maptype' type}};
   {{/each}}
 }
 {{/each}}

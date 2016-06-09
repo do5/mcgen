@@ -1,9 +1,17 @@
-<a name="1.0.0-beta.13"></a>
-# 1.0.0-beta.1 (2016-05-30)
-* add ignory __check__ for create project
+## 1.0.0-beta.13 (2016-05-30)
 
-<a name="1.0.0-beta.1"></a>
-# 1.0.0-beta.1 (2016-05-30)
+Features:
 
-### New
-* **Add project to npm**
+  - add ignory __check__ for create project
+  - add default value `required`   
+     typescript `data?: string`
+     cs `data?: string`
+     php `only in comment`
+  - watch - It decided to use onchange or other utilities 
+
+
+
+## 1.0.0-beta.1 (2016-05-30)
+**Add project to npm**
+Bugfixes:
+Security:
