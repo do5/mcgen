@@ -36,11 +36,16 @@ export class Setting {
   public static integTemplates: { [key: string]: Template };
   //all templates
   public static templates: { [key: string]: Template };
+  public static multiExt: boolean;
   public static validatorJSON: JsonValidator;
   public static postinit() {
     Setting.userTemplate = Template.createTemplates($.readAbsDir(Setting.mp_templ_user_dir));
     Setting.integTemplates = Template.createTemplates($.readAbsDir(Setting.templ_dir));
     Setting.templates = _.extend(Setting.integTemplates, Setting.userTemplate);
+
+    let multiExtObj = {};
+    _.each(Setting.templates, (val)=> multiExtObj[val.getInfo().ext] = true);
+    Setting.multiExt = _.allKeys(multiExtObj).length > 1;
 
     Setting.validatorJSON = new JsonValidator(Setting.shema_file);
   }
