@@ -1,3 +1,8 @@
+## 1.0.0-beta.16 (2016-06-14)
+
+bugfix:
+  - error validating not point file  
+
 ## 1.0.0-beta.14 (2016-06-09)
 
 Features:

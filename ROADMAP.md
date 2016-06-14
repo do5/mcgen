@@ -1,10 +1,8 @@
-## 1.0.0-beta.16
+## 1.0.0-beta.17
 
 Features:
   - multi out should be with <id-tempalate>  
 
-bugfix:
-  - error validating not point file  
 
 ## Next version
 

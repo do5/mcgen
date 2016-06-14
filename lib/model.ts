@@ -132,12 +132,12 @@ export class Model extends ErrorLast {
           mInfo = ModelFile.Read(files[n]);
         }
         catch (e) {
-          this.error(e);
+          this.error(e, files[n]);
           continue;
         }
 
         if (!validator.validate(mInfo)) {
-          this.error(files[n], validator.getLastDisplayError());
+          this.error(validator.getLastDisplayError(), files[n]);
           continue;
         }
 
