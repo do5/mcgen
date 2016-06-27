@@ -64,6 +64,12 @@ interface {{name}}
  */
 interface {{ name }}Interface{{#if basetype}} extends {{basetype}}Interface {{/if}}
 {
+{{#if @root.vars.gen_prop_name}}
+{{#each items}}
+  const PN_{{name}} = '{{name}}';
+{{/each}}
+{{/if}}
+
 }
 
 class {{ name }} implements {{ name }}Interface

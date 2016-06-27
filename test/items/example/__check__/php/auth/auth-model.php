@@ -11,6 +11,9 @@ namespace Example\Auth;
  */
 interface UserBaseInterface
 {
+  const PN_UserName = 'UserName';
+  const PN_Psw = 'Psw';
+
 }
 
 class UserBase implements UserBaseInterface
@@ -32,6 +35,8 @@ class UserBase implements UserBaseInterface
  */
 interface UserInterface extends UserBaseInterface 
 {
+  const PN_EMail = 'EMail';
+
 }
 
 class User implements UserInterface

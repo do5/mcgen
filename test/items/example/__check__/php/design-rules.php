@@ -45,6 +45,11 @@ interface OnOff
  */
 interface UserInfoInterface extends UserInterface 
 {
+  const PN_Address = 'Address';
+  const PN_UsedEnum = 'UsedEnum';
+  const PN_Point = 'Point';
+  const PN_AnyVal = 'AnyVal';
+
 }
 
 class UserInfo implements UserInfoInterface

@@ -1,3 +1,17 @@
+## 1.0.0-beta.17 (2016-06-27)
+
+add:
+  - php. Names of the properties to generate interfaces
+  ```php
+   interface UserInterface
+   {
+     const PN_Address = 'Address';
+     const PN_UsedEnum = 'UsedEnum';
+     const PN_Point = 'Point';
+     const PN_AnyVal = 'AnyVal';
+   }
+  ```  
+
 ## 1.0.0-beta.16 (2016-06-14)
 
 bugfix:

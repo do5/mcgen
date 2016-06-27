@@ -8,6 +8,11 @@
       "name": "ver",
       "description": "Version PHP. Support [5,7]",
       "value": 7
+    },
+    {
+      "name": "gen_prop_name",
+      "description": "Are the names of the properties to generate interfaces",
+      "value": true
     }
   ]
 }
