@@ -254,6 +254,8 @@ export class Model extends ErrorLast {
       if (_.isUndefined(imp_cur.imports)) continue;
 
       for (var i = 0; i < imp_cur.imports.length; i++) {
+        //TODO: Делать тут
+        //imp_cur.imports[i].file = imp_cur.imports[i].file.replace(/..\//g, '');
         var imp_ref = imp_cur.imports[i];
         let model_ref = this.modelsNative[imp_ref.file];
         if (_.isUndefined(model_ref)) {

@@ -20,6 +20,20 @@ fs.emptyDirSync(outdir);
 Setting.postinit();
 Setting.mp_console = false;
 
+describe('check crosslevel level', () => {
+  let _indir = path.join(indir, 'import', 'crosslevel');
+  let _outdir = path.join(outdir, 'import', 'crosslevel');
+  it('should be ok', () => {
+    var model = new Model(_indir);
+    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+    _.each(Setting.templates, (val, key) => {
+      let f = val.proccess(model, _outdir);
+      assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
+    })
+  });
+});
+
 describe('model shouldt be properties duplication', () => {
   let _indir = path.join(indir, 'dubl-model-prop');
   let _outdir = path.join(outdir, 'dubl-model-prop');

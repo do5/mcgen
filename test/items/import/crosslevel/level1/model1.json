@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "imports": [
+    {
+      "file": "../model",
+      "type": "ProfileBack"
+    }
+  ],
+  "models": [
+    {
+      "name": "Profile",
+      "basetype": "ProfileBack",
+      "items": [
+        {
+          "name": "Name",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
