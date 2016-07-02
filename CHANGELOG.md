@@ -1,3 +1,15 @@
+## 1.0.0-beta.18 (2016-02-07)
+
+bugfix:
+  - The error import parent path
+  ```json
+   "imports": [
+   {
+     "file": "../../../model",
+     "type": "ProfileBack"
+   }
+  ```
+
 ## 1.0.0-beta.17 (2016-06-27)
 
 add:

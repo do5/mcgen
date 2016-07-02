@@ -71,6 +71,21 @@ export class Model extends ErrorLast {
   }
 
   /*
+  * For `../` path imports
+  */
+  private normalizeImports(curFileModel: string, file: string): string {
+    if (file.indexOf('../') < 0) return file;
+    let pathFileModel = path.dirname(curFileModel)
+    file = path.join(pathFileModel, file);
+    file = file.replace(this.basedir, '');
+    if ((file[0] === path.posix.sep) || (file[0] === path.win32.sep))
+      file = file.substr(1);
+    file = file.replace(/\\/g, '/');;
+    return file;
+  }
+
+
+  /*
   * <relpath>
   */
   private getModelPath(file: string): string {
@@ -166,7 +181,7 @@ export class Model extends ErrorLast {
     this.resetError();
     this.readModelRec([this.basedir], validator);
     if (this.isError()) return false;
-    this.checkImports();
+    this.checkAndNormImports();
     if (this.isError()) return false;
     this.checkTypes();
     if (this.isError()) return false;
@@ -248,14 +263,13 @@ export class Model extends ErrorLast {
     }
   }
 
-  private checkImports() {
+  private checkAndNormImports() {
     for (var key in this.modelsNative) {
       let imp_cur = this.modelsNative[key];
       if (_.isUndefined(imp_cur.imports)) continue;
 
       for (var i = 0; i < imp_cur.imports.length; i++) {
-        //TODO: Делать тут
-        //imp_cur.imports[i].file = imp_cur.imports[i].file.replace(/..\//g, '');
+        imp_cur.imports[i].file = this.normalizeImports(imp_cur.$src, imp_cur.imports[i].file);
         var imp_ref = imp_cur.imports[i];
         let model_ref = this.modelsNative[imp_ref.file];
         if (_.isUndefined(model_ref)) {

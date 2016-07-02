@@ -2,21 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
   "imports": [
     {
-      "file": "../model1",
-      "type": "Profile"
-    },
-    {
-      "file": "../../model",
+      "file": "../../../model",
       "type": "ProfileBack"
     }
   ],
   "models": [
     {
-      "name": "Profile2",
-      "basetype": "Profile"
-    },
-    {
-      "name": "Profile3",
+      "name": "Profile4",
       "basetype": "ProfileBack"
     }
   ]
