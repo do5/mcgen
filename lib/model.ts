@@ -74,7 +74,7 @@ export class Model extends ErrorLast {
   * For `../` path imports
   */
   private normalizeImports(curFileModel: string, file: string): string {
-    if (file.indexOf('../') < 0) return file;
+    //if (file.indexOf('../') < 0) return file;
     let pathFileModel = path.dirname(curFileModel)
     file = path.join(pathFileModel, file);
     file = file.replace(this.basedir, '');

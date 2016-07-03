@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "models": [
+    /* --- ApiResponse */
+    {
+      "name": "ApiResponse",
+      "description": "Response any of all request",
+      "items": [
+        {
+          "name": "errCode",
+          "description": "Error code. 0 - good, not zero bad",
+          "type": "integer"
+        },
+        {
+          "name": "body",
+          "description": "Message json string",
+          "required": false,
+          "type": "any"
+        }
+      ]
+    },
+    /* --- ApiError */
+    {
+      "name": "ApiError",
+      "description": "Common error",
+      "items": [
+        {
+          "name": "msg",
+          "description": "Error message",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

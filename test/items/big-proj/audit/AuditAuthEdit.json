@@ -4,7 +4,7 @@
     {
       //Model where is the type.
       //The path is relative, no start '/' and without the extension '.json'. Delimiter '/'
-      "file": "audit/AuditObject",
+      "file": "AuditObject",
       //The imported data type can only be a 'model' and used as a parameter or inheritance
       "type": "AuditObject"
     }

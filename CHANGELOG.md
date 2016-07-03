@@ -1,3 +1,8 @@
+## 1.0.0-beta.19 (2016-02-08)
+
+bugfix:
+  - The error relative path
+
 ## 1.0.0-beta.18 (2016-02-07)
 
 bugfix:

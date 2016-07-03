@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  "models": [
+    /* --- ShortProfile */
+    {
+      "name": "ShortProfile",
+      "description": "Короткий профайл пользователя",
+      "items": [
+        {
+          "name": "user_name",
+          "description": "User name",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "description": "User email",
+          "type": "string"
+        }
+      ]
+    },
+    /* --- Profile */
+    {
+      "name": "Profile",
+      "basetype": "ShortProfile",
+      "description": "Полный профиль пользователя",
+      "items": [
+        {
+          "name": "msg",
+          "description": "Error message",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

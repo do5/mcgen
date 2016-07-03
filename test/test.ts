@@ -20,19 +20,25 @@ fs.emptyDirSync(outdir);
 Setting.postinit();
 Setting.mp_console = false;
 
-describe('check crosslevel level', () => {
-  let _indir = path.join(indir, 'import', 'crosslevel');
-  let _outdir = path.join(outdir, 'import', 'crosslevel');
-  it('should be ok', () => {
-    var model = new Model(_indir);
-    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
-    _.each(Setting.templates, (val, key) => {
-      let f = val.proccess(model, _outdir);
-      assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
-      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
-    })
+function ok_all_tests(ppath: string) {
+  let _indir = path.join(indir, ppath);
+  let _outdir = path.join(outdir, ppath);
+  describe('check ' + ppath, () => {
+    it('should be ok', () => {
+      var model = new Model(_indir);
+      assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+      _.each(Setting.templates, (val, key) => {
+        let f = val.proccess(model, _outdir);
+        assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
+        assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
+      })
+    });
   });
-});
+}
+
+ok_all_tests(path.join('import', 'ok2'));
+
+ok_all_tests(path.join('import', 'crosslevel'));
 
 describe('model shouldt be properties duplication', () => {
   let _indir = path.join(indir, 'dubl-model-prop');
@@ -62,7 +68,6 @@ describe('check example', () => {
     _.each(Setting.templates, (val, key) => {
       let f = val.proccess(model, _outdir);
       assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
-      assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
     })
   });
 });
@@ -76,7 +81,6 @@ describe('const shouldt be type in model', () => {
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
 });
-
 
 describe('check big project', () => {
   let _indir = path.join(indir, 'big-proj');
@@ -98,7 +102,6 @@ describe('check only enums', () => {
     assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
   });
 });
-
 
 describe('check eloquent', () => {
   let _indir = path.join(indir, 'eloquent');

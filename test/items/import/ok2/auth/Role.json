@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-shema.json",
+  /*
+  "imports": [
+    {
+      "file": "Object.json",
+      "type": "AppObject"
+    }
+
+  ],
+  */
+  "models": [
+    {
+      "name": "Role",
+      "description": "Role of user",
+      "attrs": [
+        {
+          "id": "eloquent",
+          "table": "'auth_roles'"
+        }
+      ],
+      "items": [
+        {
+          "name": "id",
+          "description": "Role identifier",
+          "type": "integer"
+        },
+        {
+          "name": "role_name",
+          "description": "Role name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "description": "Description of role",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
