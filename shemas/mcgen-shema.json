@@ -262,6 +262,10 @@
                       },
                       "array": {
                         "type": "boolean"
+                      },
+                      "arrayparams": {
+                        "type": "boolean",
+                        "description": "Rest Parameters. ts: func(...data[])"
                       }
                     }
                   },

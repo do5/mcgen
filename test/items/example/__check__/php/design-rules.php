@@ -90,9 +90,10 @@ interface MyContract extends BaseType
    *
    * @param int[] $arg1arr arg1 desc
    * @param string[] $arg2arr arg3arr desc
+   * @param string[] ...$arg3arr arg4arr desc
    * @return UserInfo[] result desc
    */
-  function GetDataArr(array $arg1arr, array $arg2arr): array;
+  function GetDataArr(array $arg1arr, array $arg2arr, array ...$arg3arr): array;
 }
 interface MyContractExt extends BaseTypeExt 
 {

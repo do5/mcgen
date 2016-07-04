@@ -77,9 +77,10 @@ namespace Example
     /// desc getDataArr
     /// <param name="arg1arr">arg1 desc</param>
     /// <param name="arg2arr">arg3arr desc</param>
+    /// <param name="arg3arr">arg4arr desc</param>
     /// <returns>result desc</returns>
     /// </summary>
-    UserInfo[] GetDataArr(int[] arg1arr, string[] arg2arr);
+    UserInfo[] GetDataArr(int[] arg1arr, string[] arg2arr, params string[] arg3arr);
   }
   public partial interface MyContractExt : BaseTypeExt 
   {

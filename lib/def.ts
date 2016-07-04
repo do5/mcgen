@@ -77,6 +77,8 @@ export interface ModelInfo {
         name: string,
         description: string,
         type: string,
+        array: boolean,
+        arrayparams: boolean
       }[]
     }[]
   }[]

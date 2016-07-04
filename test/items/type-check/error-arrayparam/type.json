@@ -1,0 +1,20 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "contracts": [
+    {
+      "name": "zzz",
+      "methods": [
+        {
+          "name": "ddd",
+          "args": [
+            {
+              "name": "a",
+              "type": "string",
+              "arrayparams": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

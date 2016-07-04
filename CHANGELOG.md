@@ -1,3 +1,14 @@
+## 1.0.0-beta.20 (2016-04-08)
+
+Features:
+  - add type arrayparams in contract. Example typescript: `method(...ss:string[])`
+  ```json
+  "name": "PointArray",
+  "array": true,
+  **"arrayparams": true**
+  "type": "boolean"
+```
+
 ## 1.0.0-beta.19 (2016-02-08)
 
 bugfix:

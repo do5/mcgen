@@ -167,6 +167,13 @@ Enumerator is not supported by all languages. If the enumerator does not support
               "array": true,
               "type": "string",
               "description": "arg3arr desc"
+            },
+            {
+              "name": "arg3arr",
+              "array": true,
+              "arrayparams": true,
+              "type": "string",
+              "description": "arg4arr desc"
             }
           ]
         }

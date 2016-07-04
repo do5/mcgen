@@ -100,11 +100,11 @@ interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}}
    * {{{ description }}}
    *
    {{#each args}}
-   * @param {{map 'typephp' type}}{{#if array}}[]{{/if}} ${{name}} {{description}}
+   * @param {{map 'typephp' type}}{{#if array}}[]{{/if}} {{#if arrayparams}}...{{/if}}${{name}} {{description}}
    {{/each}}
    {{#if result}}* @return {{map 'typephp' result.type}}{{#if result.array}}[]{{/if}} {{result.description}}{{/if}}
    */
-  function {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#php7 @root.vars.ver}}{{#if array}}array{{else}}{{map 'typephp' type}}{{/if}} {{/php7}}${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{#if result.array}}array{{else}}{{map 'typephp' result.type}}{{/if}}{{/resphp}};
+  function {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#php7 @root.vars.ver}}{{#if array}}array{{else}}{{map 'typephp' type}}{{/if}} {{/php7}}{{#if arrayparams}}...{{/if}}${{name}}{{/each}}){{#resphp result @root.vars.ver}}: {{#if result.array}}array{{else}}{{map 'typephp' result.type}}{{/if}}{{/resphp}};
   {{/each}}
 }
 {{/each}}

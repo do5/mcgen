@@ -85,7 +85,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{/each}}
     {{#if result}}/// <returns>{{result.description}}</returns>{{/if}}
     /// </summary>
-    {{#if result}}{{map 'typecs' result.type}}{{#if result.array}}[]{{/if}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{map 'typecs' type}}{{#if array}}[]{{/if}} {{name}}{{/each}});
+    {{#if result}}{{map 'typecs' result.type}}{{#if result.array}}[]{{/if}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#if arrayparams}}params {{/if}}{{map 'typecs' type}}{{#if array}}[]{{/if}} {{name}}{{/each}});
     {{/each}}
   }
   {{/each}}

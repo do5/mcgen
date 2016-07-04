@@ -74,11 +74,11 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}} {
   /**
    * {{ description }}
    {{#each args}}
-   * @param  { {{map 'maptype' type}}{{#if array}}[]{{/if}} } {{name}} {{description}}
+   * @param  { {{#if arrayparams}}...{{/if}}{{map 'maptype' type}}{{#if array}}[]{{/if}} } {{name}} {{description}}
    {{/each}}
    {{#if result}}* returns {{result.type}}{{#if result.array}}[]{{/if}} {{result.description}}{{/if}}
    */
-  {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{name}}: {{map 'maptype' type}}{{#if array}}[]{{/if}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{#if result.array}}[]{{/if}}{{/if}};
+  {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{#if arrayparams}}...{{/if}}{{name}}: {{map 'maptype' type}}{{#if array}}[]{{/if}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{#if result.array}}[]{{/if}}{{/if}};
   {{/each}}
 }
 {{/each}}

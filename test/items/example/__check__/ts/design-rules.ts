@@ -69,9 +69,10 @@ export interface MyContract extends BaseType  {
    * desc getDataArr
    * @param  { number[] } arg1arr arg1 desc
    * @param  { string[] } arg2arr arg3arr desc
+   * @param  { ...string[] } arg3arr arg4arr desc
    * returns UserInfo[] result desc
    */
-  GetDataArr(arg1arr: number[], arg2arr: string[]): UserInfo[];
+  GetDataArr(arg1arr: number[], arg2arr: string[], ...arg3arr: string[]): UserInfo[];
 }
 export interface MyContractExt extends BaseTypeExt  {
 }

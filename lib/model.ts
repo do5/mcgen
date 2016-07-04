@@ -237,6 +237,12 @@ export class Model extends ErrorLast {
       return; //ok
     }
 
+    let checkContractArray = (dest: string, array: boolean, arrayparams: boolean, model: def.ModelInfo) => {
+      if ((arrayparams) && ((_.isUndefined(array)) || (!array))) {
+        this.error(`If set to 'arrayparams' it must be set to 'array'. Contract '${dest}'`, model.$src);
+      }
+    }
+
     for (var key in this.modelsNative) {
       let imp_cur: def.ModelInfo = this.modelsNative[key];
 
@@ -258,6 +264,7 @@ export class Model extends ErrorLast {
         _.each(contract.methods, (method) => {
           if (_.isObject(method.result)) check(method.result.type, true, imp_cur);
           _.each(method.args, (arg) => check(arg.type, true, imp_cur));
+          _.each(method.args, (arg) => checkContractArray(`${contract.name}->${method.name}->${arg.name}`, arg.array, arg.arrayparams, imp_cur));
         });
       });
     }

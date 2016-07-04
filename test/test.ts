@@ -36,6 +36,9 @@ function ok_all_tests(ppath: string) {
   });
 }
 
+
+ok_all_tests(path.join('example'));
+
 ok_all_tests(path.join('import', 'ok2'));
 
 ok_all_tests(path.join('import', 'crosslevel'));
@@ -56,19 +59,6 @@ describe('check not import error', () => {
   it('should error', () => {
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
-  });
-});
-
-describe('check example', () => {
-  let _indir = path.join(indir, 'example');
-  let _outdir = path.join(outdir, 'example');
-  it('valid model', () => {
-    var model = new Model(_indir);
-    assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
-    _.each(Setting.templates, (val, key) => {
-      let f = val.proccess(model, _outdir);
-      assert.isTrue(val.proccess(model, _outdir), val.getLastDisplayError());
-    })
   });
 });
 
@@ -162,6 +152,12 @@ describe('check type', () => {
   it('should error type', () => {
     let _indir = path.join(indir, 'type-check', 'error-notype');
     let _outdir = path.join(outdir, 'type-check', 'error-notype');
+    var model = new Model(_indir);
+    assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
+  });
+  it('should error arrayparam', () => {
+    let _indir = path.join(indir, 'type-check', 'error-arrayparam');
+    let _outdir = path.join(outdir, 'type-check', 'error-arrayparam');
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
