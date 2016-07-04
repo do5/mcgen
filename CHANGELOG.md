@@ -1,3 +1,8 @@
+## 1.0.0-beta.21 (2016-04-08)
+
+bugfix:
+  - escape description
+
 ## 1.0.0-beta.20 (2016-04-08)
 
 Features:

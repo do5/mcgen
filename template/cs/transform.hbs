@@ -13,7 +13,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
   {{#each consts}}
   {{#if description}}
   /// <summary>
-  /// {{ description }}
+  /// {{{ description }}}
   /// </summary>
   {{/if}}
   public static class {{name}}
@@ -21,7 +21,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{#each items }}
     {{#if description}}
     /// <summary>
-    /// {{ description }}
+    /// {{{ description }}}
     /// </summary>
     {{/if}}
     public const {{map 'typecs' type}} {{name}} = {{#val value "\""}}{{/val}};
@@ -33,7 +33,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
   {{#each enums}}
   {{#if description}}
   /// <summary>
-  /// {{ description }}
+  /// {{{ description }}}
   /// </summary>
   {{/if}}
   public enum {{ name }}
@@ -41,7 +41,7 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{#each items}}
     {{#if description}}
     /// <summary>
-    /// {{ description }}
+    /// {{{ description }}}
     /// </summary>
     {{/if}}
     {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
@@ -53,14 +53,14 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
   {{#each models}}
   {{#if description}}
   /// <summary>
-  /// {{ description }}
+  /// {{{ description }}}
   /// </summary>
   {{/if}}
   public partial class {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
   {
     {{#each items}}
     /// <summary>
-    /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
+    /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
     /// </summary>
     public virtual {{map 'typecs' type}}{{#if array}}[]{{/if}}{{#ifn-required}}?{{/ifn-required}} {{name}} {get; set; }
     {{/each}}
@@ -72,18 +72,18 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
   {{#each contracts}}
   {{#if description}}
   /// <summary>
-  /// {{ description }}
+  /// {{{ description }}}
   /// </summary>
   {{/if}}
   public partial interface {{ name }}{{#if basetype}} : {{basetype}} {{/if}}
   {
     {{#each methods}}
     /// <summary>
-    /// {{ description }}
+    /// {{{ description }}}
     {{#each args}}
-    /// <param name="{{name}}">{{description}}</param>
+    /// <param name="{{name}}">{{{ description }}}</param>
     {{/each}}
-    {{#if result}}/// <returns>{{result.description}}</returns>{{/if}}
+    {{#if result}}/// <returns>{{{result.description}}}</returns>{{/if}}
     /// </summary>
     {{#if result}}{{map 'typecs' result.type}}{{#if result.array}}[]{{/if}}{{else}}void{{/if}} {{name}}({{#each args}}{{#if @index}}, {{/if}}{{#if arrayparams}}params {{/if}}{{map 'typecs' type}}{{#if array}}[]{{/if}} {{name}}{{/each}});
     {{/each}}

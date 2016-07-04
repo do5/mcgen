@@ -10,14 +10,14 @@ import { {{type}} } from "./{{file}}";
 {{#each consts}}
 {{#if description}}
 /**
- * {{ description }}
+ * {{{ description }}}
  */
 {{/if}}
 export namespace {{name}} {
   {{#each items }}
   {{#if description}}
   /**
-   * {{ description }}
+   * {{{ description }}}
    */
   {{/if}}
   export const {{name}}: {{map 'maptype' type}}= {{#val value "'"}}{{/val}};
@@ -29,14 +29,14 @@ export namespace {{name}} {
 {{#each enums}}
   {{#if description}}
 /**
-* {{ description }}
+* {{{ description }}}
 **/
   {{/if}}
 export enum {{ name }} {
   {{#each items}}
   {{#if description}}
   /**
-   * {{ description }}
+   * {{{ description }}}
    */
   {{/if}}
   {{name}}{{#if value}} = {{value}}{{/if}}{{#if @last}}{{else}},{{/if}}
@@ -48,13 +48,13 @@ export enum {{ name }} {
 {{#each models}}
 {{#if description}}
 /**
- * {{ description }}
+ * {{{ description }}}
 */
 {{/if}}
 export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   {{#each items}}
   /**
-   * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{ description }}
+   * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
    */
   {{name}}{{#ifn-required}}?{{/ifn-required}}: {{map 'maptype' type}}{{#if array}}[]{{/if}};
   {{/each}}
@@ -66,17 +66,17 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
 {{#each contracts}}
   {{#if description}}
 /**
- * {{ description }}
+ * {{{ description }}}
  */
   {{/if}}
 export interface {{ name }}{{#if basetype}} extends {{basetype}} {{/if}} {
   {{#each methods}}
   /**
-   * {{ description }}
+   * {{{ description }}}
    {{#each args}}
-   * @param  { {{#if arrayparams}}...{{/if}}{{map 'maptype' type}}{{#if array}}[]{{/if}} } {{name}} {{description}}
+   * @param  { {{#if arrayparams}}...{{/if}}{{map 'maptype' type}}{{#if array}}[]{{/if}} } {{name}} {{{ description }}}
    {{/each}}
-   {{#if result}}* returns {{result.type}}{{#if result.array}}[]{{/if}} {{result.description}}{{/if}}
+   {{#if result}}* returns {{result.type}}{{#if result.array}}[]{{/if}} {{{result.description}}}{{/if}}
    */
   {{name}}({{#each args}}{{#if @first}}{{else}} {{/if}}{{#if arrayparams}}...{{/if}}{{name}}: {{map 'maptype' type}}{{#if array}}[]{{/if}}{{#if @last}}{{else}},{{/if}}{{/each}}){{#if result}}: {{map 'maptype' result.type}}{{#if result.array}}[]{{/if}}{{/if}};
   {{/each}}
