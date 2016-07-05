@@ -1,0 +1,15 @@
+{
+  "$schema": "shemas/mcgen-shema.json",
+  "models": [
+    {
+      "name": "Mandor",
+      "items": [
+        {
+          "name": "prop2",
+          "description": "desc",
+          "type": "OnOff"
+        }
+      ]
+    }
+  ]
+}

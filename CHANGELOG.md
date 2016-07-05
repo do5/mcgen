@@ -1,3 +1,13 @@
+## 1.0.0-beta.22 (2016-06-08)
+
+Features:
+  - The ability to use external types not described in Models. This is important in the following cases:
+    1. Inheritance models. When there is a need for a base object is not described by the model.
+    2. When there is a need in different languages use different classes. 
+       For example, to perform asynchronous operations: typescript: - Promise, C#: System.Task
+       !!!!!!! Add an example later.
+
+
 ## 1.0.0-beta.21 (2016-04-08)
 
 bugfix:

@@ -1,0 +1,15 @@
+{
+  "$schema": "shemas/mcgen-config-shema.json",
+  "external": [
+    {
+      "type": "dfds",
+      "cs": {
+        "name": "Task",
+        "namespace": "System"
+      },
+      "ts": {
+        "name": "Promise"
+      }
+    }
+  ]
+}

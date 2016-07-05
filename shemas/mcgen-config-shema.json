@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "external": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "patternProperties": {
+          "^(.+)+$": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Type name"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Full namespace of type. Only delim: '/' ",
+                "pattern": "^[^(\\|.)]+$"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
