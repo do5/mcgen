@@ -2,14 +2,21 @@
   "$schema": "shemas/mcgen-config-shema.json",
   "external": [
     {
-      "type": "dfds",
+      /*
+      The type must be replaced in different languages
+      */
+      "type": "Async",
       "cs": {
-        "name": "Task",
+        "type": "Task",
         "namespace": "System"
       },
       "ts": {
-        "name": "Promise"
+        "type": "Promise"
       }
+    },
+    {
+      "type": "ExType",
+      "namespace": "Sys/Data"
     }
   ]
 }

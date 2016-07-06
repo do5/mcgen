@@ -84,3 +84,11 @@ export interface ModelInfo {
   }[]
 }
 
+export interface ConfigInfo {
+  external : {
+    type: string,
+    namespace?: string
+
+
+  }[]
+}
