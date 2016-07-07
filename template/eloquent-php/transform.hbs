@@ -9,11 +9,11 @@
 {{!-- ****IMPORT SECTION**** --}}
 namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
-use {{{@root.vars.base_namespace}}};
+use {{{@root.vars.base_namespace}}}\\{{{@root.vars.base_class}}};
 {{!--
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-use {{to-ns @root.namespace '/' "\^" 'firstupper'}}\\{{ name }}Interface;
+use {{{to-ns @root.namespace '/' "\^" 'firstupper'}}}\\{{{ name }}}Interface;
 {{/ifattr}}
 {{/each}}
  --}}

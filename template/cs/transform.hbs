@@ -4,7 +4,7 @@
 {{!-- ****IMPORT SECTION**** --}}
 using System;
 {{#each imports}}
-using {{type}} = {{to-ns (impfileto-ns file) '/' '.' 'firstupper'}}.{{type}};
+using {{{type}}} = {{{to-ns (impfileto-ns file) '/' '.' 'firstupper'}}}.{{{type}}};
 {{/each}}
 
 namespace {{to-ns namespace '/' '.' 'firstupper'}}

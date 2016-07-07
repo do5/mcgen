@@ -59,8 +59,8 @@ export var helpershbs: { [key: string]: Function } = {
    * Example: {{replace 'data/imp/next' '/' '.'}} -> Data.Imp.Next
    */
   'to-ns': function (val, to_replace, replacement, cmd) {
-    replacement = (replacement || '').replace('\\^', '\\')
-    let res: string = (val || '').replace(to_replace, replacement);
+    replacement = (replacement || '').replace(/\\\^/g, '\\')
+    let res: string = (val || '').split(to_replace).join(replacement);
     if (cmd === 'firstupper') {
       let newarr: string[] = [];
       let upper = true;

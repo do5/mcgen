@@ -1,5 +1,5 @@
 using System;
-using Task = System.Task;
+using Task = System.Data.Ts.Task;
 using ExType = Sys.Data.ExType;
 
 namespace Test1

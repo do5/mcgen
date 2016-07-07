@@ -126,11 +126,6 @@ export class Template extends ErrorLast {
     if (_.isEmpty(result.type)) result.type = all.type;
     if (_.isEmpty(result.namespace)) result.namespace = all.namespace;
 
-    if (_.isUndefined(result.type) || _.isUndefined(result.namespace)) {
-      this.error(`The file is incorrectly specified external type '${type}''`, modelSettings.FileName);
-    }
-
-
     return result;
   }
 
@@ -139,6 +134,8 @@ export class Template extends ErrorLast {
     let ns: { [id: string]: _extype } = {};
     let add_ns = (val: _extype): boolean => {
       if (!val.search) return false;
+      if (_.isUndefined(val.namespace)) return false;
+      if (val.namespace == '') return false;
       ns[`${val.namespace}/+${val.type}`] = val;
       return true;
     }

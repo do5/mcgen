@@ -1,3 +1,6 @@
+## 1.0.0-beta.24
+ - some bugfix
+
 ## 1.0.0-beta.23
 
 Features:

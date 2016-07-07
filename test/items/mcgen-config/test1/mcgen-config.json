@@ -12,7 +12,7 @@
         },
         "cs": {
           "type": "Task",
-          "namespace": "System"
+          "namespace": "System/Data/Ts"
         },
         "ts": {
           "type": "Promise",

@@ -9,9 +9,9 @@ namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
 {{#each imports}}
 {{#ifmodeltype type 'models' @root}}
-use {{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}\\{{type}}Interface;
+use {{{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}}\\{{{type}}}Interface;
 {{else}}
-use {{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}\\{{type}};
+use {{{to-ns (impfileto-ns file) '/' "\^"  'firstupper'}}}\\{{{type}}};
 {{/ifmodeltype}}
 {{/each}}
 {{!-- ****CONST SECTION**** --}}

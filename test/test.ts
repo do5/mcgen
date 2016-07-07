@@ -11,6 +11,15 @@ import {CmdUtils} from './../lib/cmd-utils';
 
 import * as child_process from 'child_process';
 
+
+let dd = "ss.s\\%ss.sss.sss";
+
+
+ let replacement1 = dd.split("\\%").join('');
+
+ let replacement = (dd || '').replace(/\./g, '\\')
+
+
 var assert = chai.assert;
 
 let indir = path.join(Setting.test_items_dir);
