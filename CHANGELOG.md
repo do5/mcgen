@@ -1,12 +1,40 @@
-## 1.0.0-beta.22 (2016-06-08)
+## 1.0.0-beta.23
 
 Features:
   - The ability to use external types not described in Models. This is important in the following cases:
-    1. Inheritance models. When there is a need for a base object is not described by the model.
-    2. When there is a need in different languages use different classes. 
+    - When there is a need in different languages use different classes. 
        For example, to perform asynchronous operations: typescript: - Promise, C#: System.Task
-       !!!!!!! Add an example later.
+       ```json
+        {
+          "$schema": "https://raw.githubusercontent.com/do5/mcgen/master/shemas/mcgen-config-shema.json",
+          "external": [
+          {
+            "type": "Async",
+            "langs": {
+              "*": {
+                "namespace": "Sys/Data"
+              },
+             "cs": {
+               "type": "Task",
+               "namespace": "System"
+             },
+            "ts": {
+              "type": "Promise",
+              "namespace": "sys"
+             }
+           }
+         }
+       ]
+      }
+       ```
+  The settings file must be in the root folder of the model. And called `mcgen-config.json`
 
+Add:
+  - In the template 'eloquent-php', you can use any base class  
+
+## 1.0.0-beta.22 (2016-06-08)
+
+ Test version
 
 ## 1.0.0-beta.21 (2016-04-08)
 

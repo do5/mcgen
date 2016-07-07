@@ -13,7 +13,7 @@ export interface InfoTemplate {
 
 export interface Attr {
   id: string,
-  [key:string]: string|string[]
+  [key: string]: string | string[]
 }
 
 export interface ModelInfo {
@@ -84,11 +84,22 @@ export interface ModelInfo {
   }[]
 }
 
+export interface ImportType {
+  type: string,
+  namespace?: string,
+}
+
 export interface ConfigInfo {
-  external : {
-    type: string,
-    namespace?: string
-
-
-  }[]
+  external: {
+    type: string;
+    langs: {
+      [id: string]: {
+        type: string,
+        namespace?: string,
+      }
+    }[]
+  }[],
+  vars: {
+    [key: string]: { [def: string]: any; }
+  }
 }

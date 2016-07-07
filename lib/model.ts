@@ -6,12 +6,15 @@ import * as def from  './def';
 import * as _ from  'underscore';
 import {ErrorLast} from './error-last';
 import {Setting} from './setting';
+import {RegExpCommon} from './regexp-common';
 
 import {SUPPORT_EXT, ModelFile} from './model-file';
+import {ModelConfig, MCGEN_CONFIG_FILE} from './model-config';
 
 export type NativeType = 'enums' | 'models' | 'consts' | 'contracts';
 
 export const FilePathNonSymbol: RegExp = /[-|@|#|$|%|^|&|*|(|)~|`|,|"|'|+|-]/g;
+
 
 interface ModelTypes {
   [typename: string]: {
@@ -24,11 +27,20 @@ interface ModelTypes {
 export class Model extends ErrorLast {
   private modelsNative: { [id: string]: def.ModelInfo } = {};
 
+  /**
+   * The settings file must be in the root folder of the model. And called mcgen-config.json
+   */
+  public modelConfig: ModelConfig;
+
   //All types in all files
   private types: ModelTypes = {};
 
   public getModels(): { [id: string]: def.ModelInfo } {
     return this.modelsNative;
+  }
+
+  public getModelConfig(): ModelConfig {
+    return this.modelConfig;
   }
 
   constructor(private basedir: string) {
@@ -82,6 +94,14 @@ export class Model extends ErrorLast {
       file = file.substr(1);
     file = file.replace(/\\/g, '/');;
     return file;
+  }
+
+  private isModelSettinFile(file: string): boolean {
+    file = path.basename(file);
+    let ext = path.extname(file);
+    let f = path.basename(file).substring(0, file.length - ext.length).toLowerCase();
+    if (f === MCGEN_CONFIG_FILE) return true;
+    return false;
   }
 
 
@@ -142,9 +162,10 @@ export class Model extends ErrorLast {
 
       let files = $.readAbsFiles(dirs[i], SUPPORT_EXT);
       for (let n = 0; n < files.length; n++) {
+        if (this.isModelSettinFile(files[n])) continue;
         let mInfo: def.ModelInfo;
         try {
-          mInfo = ModelFile.Read(files[n]);
+          mInfo = ModelFile.read(files[n]);
         }
         catch (e) {
           this.error(e, files[n]);
@@ -179,6 +200,10 @@ export class Model extends ErrorLast {
    */
   public proccess(validator: JsonValidator): boolean {
     this.resetError();
+
+    this.modelConfig = ModelConfig.ReadAndCheckAndFillVars(this.basedir, this);
+    if (this.isError()) return false;
+
     this.readModelRec([this.basedir], validator);
     if (this.isError()) return false;
     this.checkAndNormImports();
@@ -216,6 +241,12 @@ export class Model extends ErrorLast {
       }
       if (this.isSimpleType(typeName)) return;  //ok
       let t = this.types[typeName];
+
+      if (_.isUndefined(t)) {
+        if (_.find(this.modelConfig.Config.external, (e) => e.type === typeName)) return;
+      }
+
+
       if (_.isUndefined(t)) {
         this.error(`Not found type '${typeName}'`, model.$src);
         return;
@@ -278,6 +309,11 @@ export class Model extends ErrorLast {
       for (var i = 0; i < imp_cur.imports.length; i++) {
         imp_cur.imports[i].file = this.normalizeImports(imp_cur.$src, imp_cur.imports[i].file);
         var imp_ref = imp_cur.imports[i];
+        let match = imp_ref.file.match(RegExpCommon.NAME_SPACE);
+        if ((match.length == 0) || (match[0] != imp_ref.file)) {
+          this.error(`Found invalid characters in imports section '${imp_ref.file}'. Allowed to use  special characters:' ${RegExpCommon.NAME_SPACE_ALLOW}'`, `${key}.json`);
+          continue;
+        }
         let model_ref = this.modelsNative[imp_ref.file];
         if (_.isUndefined(model_ref)) {
           this.error(`No search import file ${imp_ref.file}`, `${key}.json`);

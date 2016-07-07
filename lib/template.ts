@@ -2,7 +2,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as def from './def';
-import {Model} from './model';
+import {Model, NativeType} from './model';
 import {JsonValidator} from './json-validator'
 import {ErrorLast} from './error-last';
 import {Utils as $}  from  './utils';
@@ -11,6 +11,7 @@ import {Setting}  from './setting';
 import * as Handlebars from 'handlebars';
 import {CodeBuider} from './code-builder'
 import {HandlebarsContext, HandlebarsAddContext} from './global-handler-hbs';
+import {ModelConfig} from './model-config'
 
 //Once registor helpers
 CodeBuider.regGlobals();
@@ -18,6 +19,13 @@ CodeBuider.regGlobals();
 const INFO_FILE: string = "_info.json";
 const TRANSFORM_FILE: string = "transform.hbs";
 const HBS_JS_FILE: string = "handler.hbs.js";
+
+interface _extype {
+  search: boolean;
+  type?: string;
+  namespace?: string;
+}
+
 
 /**
  * Use https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/dot/dot-tests.ts
@@ -93,6 +101,93 @@ export class Template extends ErrorLast {
     return true;
   }
 
+
+  private findAndReplaceConfigInfo(type: string, modelSettings: ModelConfig): _extype {
+    let result = <_extype>{ search: false };
+    let cfg = modelSettings.Config;
+
+    if (!cfg.external) return result;
+
+    let t = _.find(cfg.external, (v) => v.type === type);
+    if (!t) return result
+
+    result.search = true;
+
+    let all = t.langs["*"] || {};
+    all.type = all.type || type;
+    let l = t.langs[this.info.id];
+
+    //First spec setting
+    if (l) {
+      result.type = l.type;
+      result.namespace = l.namespace;
+    }
+
+    if (_.isEmpty(result.type)) result.type = all.type;
+    if (_.isEmpty(result.namespace)) result.namespace = all.namespace;
+
+    if (_.isUndefined(result.type) || _.isUndefined(result.namespace)) {
+      this.error(`The file is incorrectly specified external type '${type}''`, modelSettings.FileName);
+    }
+
+
+    return result;
+  }
+
+
+  private proccessExternalType(context: HandlebarsContext, modelSettings: ModelConfig): HandlebarsContext {
+    let ns: { [id: string]: _extype } = {};
+    let add_ns = (val: _extype): boolean => {
+      if (!val.search) return false;
+      ns[`${val.namespace}/+${val.type}`] = val;
+      return true;
+    }
+
+    let len = (val): number => {
+      if (_.isUndefined(val)) return 0;
+      if (_.isEmpty(val)) return 0;
+      return val.length;
+    }
+
+    //typing search and replace type external
+    for (let i = 0; i < len(context.models); i++) {
+      let items = context.models[i].items;
+      for (let n = 0; n < len(items); n++) {
+        let val = this.findAndReplaceConfigInfo(items[n].type, modelSettings);
+        if (!add_ns(val)) continue;
+        items[n].type = val.type;
+      }
+    }
+
+    for (let i = 0; i < len(context.contracts); i++) {
+      let metods = context.contracts[i].methods;
+      for (let n = 0; n < len(metods); n++) {
+        let val = this.findAndReplaceConfigInfo(metods[n].result.type, modelSettings);
+        if (add_ns(val)) {
+          metods[n].result.type = val.type;
+        }
+        for (let z = 0; z < len(metods[n].args); z++) {
+          let val = this.findAndReplaceConfigInfo(metods[n].args[z].type, modelSettings);
+          if (add_ns(val)) {
+            metods[n].args[z].type = val.type;
+          }
+        }
+      }
+    }
+
+    _.each(ns, (val) => {
+      if (len(context.imports) == 0) context.imports = [];
+      context.imports.push({ file: val.namespace, type: val.type });
+      context.namespaces[val.namespace] = val.namespace;
+    });
+
+    return context;
+  }
+
+  private fullClone<T>(val): T {
+    return JSON.parse(JSON.stringify(val));
+  }
+
   private _proccessEachFile(model: Model, destdir: string, addContext: HandlebarsAddContext): boolean {
     let file_trans = fs.readFileSync(path.join(this.pathTemplate, TRANSFORM_FILE), 'utf8');
 
@@ -122,7 +217,7 @@ export class Template extends ErrorLast {
           defvars = _.extend(defvars, uservars);
         }
 
-        let context = <HandlebarsContext>model_cur;
+        let context = this.fullClone<HandlebarsContext>(model_cur)
         context.vars = defvars;
         context.path = model_cur.$path;
         context.filename = model_cur.$filename;
@@ -137,7 +232,12 @@ export class Template extends ErrorLast {
           context.types[key] = { nativeType: val.nativeType, attrs: val.attrs };
         });
         _.each(Model.getModelTypes(model_cur), (val, key) => context.typesinfile[key] = val.nativeType);
+        //namespaces need for parent name folder
         _.each(model.getModels(), (minfo, id) => context.namespaces[id] = minfo.$namespace);
+
+        //replace external types
+        context = this.proccessExternalType(context, model.getModelConfig());
+
         addContext.contexts.push(context);
 
         let result = transform(context);

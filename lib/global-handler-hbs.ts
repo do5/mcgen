@@ -126,8 +126,7 @@ export var helpershbs: { [key: string]: Function } = {
   'ifmodeltype': function (type, nativeType: NativeType, context: HandlebarsContext, options) {
     let ntObj = context.types[type];
     if (_.isUndefined(ntObj)) {
-      options.inverse(this);
-      return;
+      return options.inverse(this);
     }
     if (ntObj.nativeType === nativeType) {
       return options.fn(this);

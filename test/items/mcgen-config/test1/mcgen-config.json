@@ -1,0 +1,32 @@
+{
+  "$schema": "shemas/mcgen-config-shema.json",
+  "external": [
+    {
+      /*
+      The type must be replaced in different languages
+      */
+      "type": "Async",
+      "langs": {
+        "*": {
+          "namespace": "Sys/Data"
+        },
+        "cs": {
+          "type": "Task",
+          "namespace": "System"
+        },
+        "ts": {
+          "type": "Promise",
+          "namespace": "System"
+        }
+      }
+    },
+    {
+      "type": "ExType",
+      "langs": {
+        "*": {
+          "namespace": "Sys/Data"
+        }
+      }
+    }
+  ]
+}

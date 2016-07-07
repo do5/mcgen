@@ -36,6 +36,7 @@ function ok_all_tests(ppath: string) {
   });
 }
 
+ok_all_tests(path.join('mcgen-config', 'test1'));
 
 ok_all_tests(path.join('example'));
 
@@ -224,3 +225,4 @@ describe('Proccess', () => {
   });
 
 });
+

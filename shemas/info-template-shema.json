@@ -14,6 +14,10 @@
     "addname": {
       "type": "string"
     },
+    "creatematch": {
+      "description": "If the result of the file appears mcgen line with a predetermined pattern that are created with the file. Otherwise, no.",
+      "type": "string"
+    },
     "ext": {
       "type": "string"
     },
