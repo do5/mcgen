@@ -47,7 +47,7 @@ export class ModelConfig {
 
       _.each(defVars, (val, key) => cur[key] = val);
       _.each(this.Config.vars[v.getId()], (val, key) => cur[key] = val);
-      if (cur !== {}) Setting.mp_idsTemplate[v.getId()] = cur;
+      if (!_.isEmpty(cur)) Setting.mp_idsTemplate[v.getId()] = cur;
     });
   }
 

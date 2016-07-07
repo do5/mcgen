@@ -1,6 +1,5 @@
 using System;
-using Task = System.Data.Ts.Task;
-using ExType = Sys.Data.ExType;
+using Action = System.Data.Tets.Action;
 
 namespace Test1
 {
@@ -15,11 +14,19 @@ namespace Test1
     /// <summary>
     /// Required. 
     /// </summary>
-    public virtual Task prop1 {get; set; }
+    public virtual System.Action<Async> prop1 {get; set; }
     /// <summary>
     /// Required. 
     /// </summary>
     public virtual ExType prop2 {get; set; }
+    /// <summary>
+    /// Required. 
+    /// </summary>
+    public virtual ExType2 prop3 {get; set; }
+    /// <summary>
+    /// Required. 
+    /// </summary>
+    public virtual Action prop4 {get; set; }
   }
 
 

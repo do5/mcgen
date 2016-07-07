@@ -7,16 +7,16 @@
       */
       "type": "Async",
       "langs": {
-        "*": {
-          "namespace": "Sys/Data"
-        },
         "cs": {
-          "type": "Task",
-          "namespace": "System/Data/Ts"
+          "type": "System.Action<Async>"
         },
         "ts": {
           "type": "Promise",
-          "namespace": "System"
+          "namespace": "System/data/Mail"
+        },
+        "php": {
+          "type": "PromisePhp",
+          "namespace": "System/Data/Tets"
         }
       }
     },
@@ -25,6 +25,26 @@
       "langs": {
         "*": {
           "namespace": "Sys/Data"
+        }
+      }
+    },
+    {
+      "type": "ExType2"
+    },
+    {
+      "type": "ExType3",
+      "langs": {
+        "cs": {
+          "type": "Action",
+          "namespace": "System/Data/Tets"
+        },
+        "ts": {
+          "type": "Promise2",
+          "namespace": "System"
+        },
+        "php": {
+          "type": "PromisePhp2",
+          "namespace": "System/Data/Tets"
         }
       }
     }

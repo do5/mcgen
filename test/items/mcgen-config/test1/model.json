@@ -15,6 +15,14 @@
         {
           "name": "prop2",
           "type": "ExType"
+        },
+        {
+          "name": "prop3",
+          "type": "ExType2"
+        },
+        {
+          "name": "prop4",
+          "type": "ExType3"
         }
       ]
     }

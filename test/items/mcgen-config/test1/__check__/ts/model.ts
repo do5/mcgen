@@ -1,5 +1,5 @@
-import { Promise } from "./System";
-import { ExType } from "./Sys/Data";
+import { Promise } from "./System/data/Mail";
+import { Promise2 } from "./System";
 
 
 
@@ -16,6 +16,14 @@ export interface Mandor {
    * Required. 
    */
   prop2: ExType;
+  /**
+   * Required. 
+   */
+  prop3: ExType2;
+  /**
+   * Required. 
+   */
+  prop4: Promise2;
 }
 
 

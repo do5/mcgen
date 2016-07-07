@@ -113,9 +113,11 @@ export class Template extends ErrorLast {
 
     result.search = true;
 
-    let all = t.langs["*"] || {};
+    let all = (_.isUndefined(t.langs) || (_.has(t.langs, "*"))) ? {} : t.langs["*"] || {};
+
     all.type = all.type || type;
-    let l = t.langs[this.info.id];
+    let l = undefined;
+    if (!_.isUndefined(t.langs)) l = t.langs[this.info.id];
 
     //First spec setting
     if (l) {
@@ -134,8 +136,8 @@ export class Template extends ErrorLast {
     let ns: { [id: string]: _extype } = {};
     let add_ns = (val: _extype): boolean => {
       if (!val.search) return false;
-      if (_.isUndefined(val.namespace)) return false;
-      if (val.namespace == '') return false;
+      if (_.isUndefined(val.namespace)) return true;
+      if (val.namespace == '') return true;
       ns[`${val.namespace}/+${val.type}`] = val;
       return true;
     }
