@@ -2,7 +2,7 @@
   "$schema": "shemas/info-template-shema.json",
   "id": "eloquent-php",
   "addname": "eloquent",
-  "creatematch": "extends Model",
+  "creatematch": "DAO",
   "ext": ".php",
   "description": "Laravel EloquentDB PHP template",
   "vars": [
@@ -10,6 +10,16 @@
       "name": "ver",
       "description": "Version PHP. Support [5,7]",
       "value": 7
+    },
+    {
+      "name": "base_class",
+      "description": "Base class for all elequent classes",
+      "value": "Model"
+    },
+    {
+      "name": "base_namespace",
+      "description": "Base namespaces class for all elequent classes",
+      "value": "Illuminate\\Database\\Eloquent\\Model"
     }
   ]
 }

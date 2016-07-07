@@ -9,7 +9,7 @@
 {{!-- ****IMPORT SECTION**** --}}
 namespace {{to-ns namespace '/' "\^" 'firstupper'}};
 
-use Illuminate\Database\Eloquent\Model;
+use {{{@root.vars.base_namespace}}};
 {{!--
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
@@ -21,7 +21,7 @@ use {{to-ns @root.namespace '/' "\^" 'firstupper'}}\\{{ name }}Interface;
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 {{#ifattr attrs 'eloquent'}}
-class {{ name }}DAO extends Model implements {{ name }}Interface
+class {{ name }}DAO extends {{{@root.vars.base_class}}} implements {{ name }}Interface
 {
   {{#ifnattr attrs 'eloquent.table'}}
   protected $table = '{{lowercase name}}';
