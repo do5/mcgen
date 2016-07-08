@@ -39,7 +39,11 @@ export class Setting {
   public static multiExt: boolean;
   public static validatorJSON: JsonValidator;
   public static postinit() {
-    Setting.userTemplate = Template.createTemplates($.readAbsDir(Setting.mp_templ_user_dir));
+    let templ_user_dirs: string[] = [Setting.mp_templ_user_dir];
+    if (!Template.checkTemplate(Setting.mp_templ_user_dir).isOk) {
+      templ_user_dirs = $.readAbsDir(Setting.mp_templ_user_dir);
+    }
+    Setting.userTemplate = Template.createTemplates(templ_user_dirs);
     Setting.integTemplates = Template.createTemplates($.readAbsDir(Setting.templ_dir));
     Setting.templates = _.extend(Setting.integTemplates, Setting.userTemplate);
 

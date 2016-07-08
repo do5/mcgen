@@ -42,7 +42,7 @@ export class Template extends ErrorLast {
     return result;
   }
 
-  private static checkTemplate(dirOrFile: string): { isOk: boolean; info: def.InfoTemplate; } {
+  public static checkTemplate(dirOrFile: string): { isOk: boolean; info: def.InfoTemplate; } {
     let result: { isOk: boolean; info: def.InfoTemplate; } = { isOk: false, info: null };
     dirOrFile = path.join(dirOrFile, INFO_FILE);
     if (!fs.existsSync(dirOrFile)) return result;
