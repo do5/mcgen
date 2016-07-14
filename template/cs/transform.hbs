@@ -51,6 +51,20 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
 
   {{!-- ****MODEL SECTION**** --}}
   {{#each models}}
+  public partial class PN_{{ name }}
+  {
+    public const ThisName = "{{name}}";
+    {{#each items}}
+    /// <summary>
+    /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
+    /// </summary>
+    public const {{name}} = "{{name}}";
+    {{/each}}
+  }
+  {{/each}}
+
+  {{!-- ****MODEL SECTION**** --}}
+    {{#each models}}
   {{#if description}}
   /// <summary>
   /// {{{ description }}}
