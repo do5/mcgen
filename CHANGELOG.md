@@ -1,3 +1,33 @@
+## 1.0.0-beta.26
+Features:
+ - Added generation of model reflection for languages cs,ts. You must enable the option `gen-desc-model` on cmdline or in file `mcgen-config.json`
+```json
+{
+  "models": [
+    {
+      "name": "Mandor",
+      "items": [
+        {
+          "name": "prop0",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+```typescript
+export namespace PN_Mandor {
+  export const thisName: string = "Mandor";
+  export const prop0: string = "prop0";
+}
+
+export interface Mandor {
+  prop0: string;
+}
+```
+
 ## 1.0.0-beta.24
  - some bugfix
 

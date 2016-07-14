@@ -4,5 +4,10 @@
   "ext": ".ts",
   "description": "Type script template",
   "vars": [
+    {
+      "name": "gen-desc-model",
+      "description": "Generation model propery as constant. PN_ClassName",
+      "value": false
+    }
   ]
 }

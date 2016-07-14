@@ -16,6 +16,11 @@ var assert = chai.assert;
 let indir = path.join(Setting.test_items_dir);
 let outdir = path.join(Setting.test_out_dir);
 fs.emptyDirSync(outdir);
+let firststep = () => {
+  Setting.reset();
+  Setting.postinit();
+  Setting.mp_console = false;
+};
 //Init
 Setting.postinit();
 Setting.mp_console = false;
@@ -25,6 +30,7 @@ function ok_all_tests(ppath: string) {
   let _outdir = path.join(outdir, ppath);
   describe('check ' + ppath, () => {
     it('should be ok', () => {
+      firststep();
       var model = new Model(_indir);
       assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
       _.each(Setting.templates, (val, key) => {
@@ -35,6 +41,8 @@ function ok_all_tests(ppath: string) {
     });
   });
 }
+
+ok_all_tests(path.join('pn-model'));
 
 ok_all_tests(path.join('mcgen-config', 'test1'));
 
@@ -48,6 +56,7 @@ describe('model shouldt be properties duplication', () => {
   let _indir = path.join(indir, 'dubl-model-prop');
   let _outdir = path.join(outdir, 'dubl-model-prop');
   it('should error', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
@@ -58,6 +67,7 @@ describe('check not import error', () => {
   let _indir = path.join(indir, 'import', 'errornotadd');
   let _outdir = path.join(outdir, 'import', 'errornotadd');
   it('should error', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
@@ -68,6 +78,7 @@ describe('const shouldt be type in model', () => {
   let _indir = path.join(indir, 'const-type-err');
   let _outdir = path.join(outdir, 'const-type-err');
   it('should error', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
   });
@@ -77,16 +88,19 @@ describe('check big project', () => {
   let _indir = path.join(indir, 'big-proj');
   let _outdir = path.join(outdir, 'big-proj');
   it('should ok', () => {
+    firststep();
     $t.eachTempl(_indir, _outdir, { 'php': {}, 'eloquent-php': {} }, (val) => {
       assert.doesNotThrow(() => $t.assertCmpText(_indir, _outdir, val.getInfo()));
     });
   });
 });
 
+
 describe('check only enums', () => {
   let _indir = path.join(indir, 'enums');
   let _outdir = path.join(outdir, 'enums');
   it('should ok', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     let val = Setting.templates['php'];
@@ -98,6 +112,7 @@ describe('check eloquent', () => {
   let _indir = path.join(indir, 'eloquent');
   let _outdir = path.join(outdir, 'eloquent');
   it('should eloquent ok', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     let val = Setting.templates['eloquent-php'];
@@ -111,6 +126,7 @@ describe('check not support enums', () => {
   let _indir = path.join(indir, 'enums-const-php');
   let _outdir = path.join(outdir, 'enums-const-php');
   it('should in php int instead of enum', () => {
+    firststep();
     var model = new Model(_indir);
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     let val = Setting.templates['php'];
@@ -124,8 +140,8 @@ describe('Model import ok', () => {
   let _indir = path.join(indir, 'import', 'ok');
   let _outdir = path.join(outdir, 'import', 'ok');
   it('assert (json, yaml) import/ok', () => {
+    firststep();
     Setting.mp_idsTemplate = new CmdUtils().parseids('php:ver=5');
-
     var model = new Model(_indir);
     assert.isTrue(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
     _.each(Setting.templates, (val, key) => {
@@ -138,6 +154,10 @@ describe('Model import ok', () => {
 
 
 describe('check type', () => {
+  beforeEach(() => {
+    firststep();
+  });
+
   it('should error type', () => {
     let _indir = path.join(indir, 'type-check', 'dublication');
     let _outdir = path.join(outdir, 'type-check', 'dublication');
@@ -173,6 +193,9 @@ describe('check type', () => {
 describe('Model import error validation', () => {
   let _indir = path.join(indir, 'import', 'error');
   let _outdir = path.join(outdir, 'import', 'error');
+  beforeEach(() => {
+    firststep();
+  });
   it('assert (json, yaml) import/error', () => {
     var model = new Model(_indir);
     assert.isFalse(model.proccess(Setting.validatorJSON), model.getLastDisplayError());
@@ -180,6 +203,9 @@ describe('Model import error validation', () => {
 });
 
 describe('Parse cmd', () => {
+  beforeEach(() => {
+    firststep();
+  });
   it('parse --id *', () => {
     let val = new CmdUtils().parseids('*');
     assert.deepEqual(val, {});

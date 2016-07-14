@@ -6,7 +6,7 @@ import * as _ from 'underscore';
 
 export interface Ids {
   [key: string]: {
-    [def: string] : any
+    [def: string]: any
   };
 }
 
@@ -48,9 +48,18 @@ export class Setting {
     Setting.templates = _.extend(Setting.integTemplates, Setting.userTemplate);
 
     let multiExtObj = {};
-    _.each(Setting.templates, (val)=> multiExtObj[val.getInfo().ext] = true);
+    _.each(Setting.templates, (val) => multiExtObj[val.getInfo().ext] = true);
     Setting.multiExt = _.allKeys(multiExtObj).length > 1;
 
     Setting.validatorJSON = new JsonValidator(Setting.shema_file);
+  }
+
+  public static reset() {
+    Setting.mp_idsTemplate = {};
+
+    Setting.mp_templ_user_dir = '';
+    Setting.mp_outdir = '';
+    Setting.mp_indir = '';
+    Setting.mp_console = true;
   }
 };

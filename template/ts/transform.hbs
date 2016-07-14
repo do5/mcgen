@@ -5,7 +5,6 @@
 {{#each imports}}
 import { {{type}} } from "./{{file}}";
 {{/each}}
-
 {{!-- ****CONST SECTION**** --}}
 {{#each consts}}
 {{#if description}}
@@ -24,7 +23,6 @@ export namespace {{name}} {
   {{/each}}
 }
 {{/each}}
-
 {{!-- ****ENUMS SECTION**** --}}
 {{#each enums}}
   {{#if description}}
@@ -43,7 +41,29 @@ export enum {{ name }} {
   {{/each}}
 }
 {{/each}}
+{{!-- ****PN MODEL SECTION**** --}}
+{{#if @root.vars.gen-desc-model}}
+{{#each models}}
+{{#if description}}
+/**
+ * {{{ description }}}
+*/
+{{/if}}
+export namespace PN_{{ name }} {
+  /**
+  * {{{ description }}}
+  */
+  export const thisName: string = "{{name}}";
+  {{#each items}}
+  /**
+   * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
+   */
+  export const {{name}}: string = "{{name}}";
+  {{/each}}
+}
+{{/each}}
 
+{{/if}}
 {{!-- ****MODEL SECTION**** --}}
 {{#each models}}
 {{#if description}}
@@ -60,8 +80,6 @@ export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   {{/each}}
 }
 {{/each}}
-
-
 {{!-- ****CONTRACT SECTION**** --}}
 {{#each contracts}}
   {{#if description}}

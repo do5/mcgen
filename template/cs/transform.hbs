@@ -28,7 +28,6 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{/each}}
   }
   {{/each}}
-
   {{!-- ****ENUMS SECTION**** --}}
   {{#each enums}}
   {{#if description}}
@@ -48,21 +47,30 @@ namespace {{to-ns namespace '/' '.' 'firstupper'}}
     {{/each}}
   }
   {{/each}}
-
-  {{!-- ****MODEL SECTION**** --}}
+  {{!-- ****PN MODEL SECTION**** --}}
+  {{#if @root.vars.gen-desc-model}}
   {{#each models}}
+  {{#if description}}
+  /// <summary>
+  /// {{{ description }}}
+  /// </summary>
+  {{/if}}
   public partial class PN_{{ name }}
   {
-    public const ThisName = "{{name}}";
+    /// <summary>
+    /// {{{ description }}}
+    /// </summary>
+    public const string ThisName = "{{name}}";
     {{#each items}}
     /// <summary>
     /// {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
     /// </summary>
-    public const {{name}} = "{{name}}";
+    public const string {{name}} = "{{name}}";
     {{/each}}
   }
   {{/each}}
 
+  {{/if}}
   {{!-- ****MODEL SECTION**** --}}
     {{#each models}}
   {{#if description}}
