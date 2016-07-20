@@ -1,4 +1,4 @@
-## 1.0.0-beta.27
+## 1.0.0-beta.27-28
  - some bugfix
 
 ## 1.0.0-beta.26
@@ -18,7 +18,7 @@ Features:
     }
   ]
 }
-```
+`
 
 ```typescript
 export namespace PN_Mandor {
