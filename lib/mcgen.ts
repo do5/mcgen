@@ -18,7 +18,10 @@ program
   .description(package_json.description)
   .option('-o, --outdir <path>', "output base dir created files", (val) => { Setting.mp_outdir = cmd.emptydir(val) })
   .option('-n, --indir <path>', "model input base dir. Example: test/design-rules.json.", (val) => { Setting.mp_indir = cmd.indir(val) })
-  .option('-d, --id <id_1[:arg_name=arg_val;arg_name=arg_val]>,<id_n>', "Array id template to use", (val) => { Setting.mp_idsTemplate = cmd.parseids(val) })
+  .option('-d, --id <id_1[:arg_name=arg_val;arg_name=arg_val]>,<id_n>', "Array id template to use", (val) => {
+     Setting.mp_idsTemplate = cmd.parseids(val)
+     Setting.mp_idsTemplateOnlyCmd = cmd.parseids(val)
+    })
   .option('-t, --template-path <path>', "the path to user template. See struct folders 'template'", (val) => { Setting.mp_templ_user_dir = cmd.templdir(val) })
   .on('--help', function () {
     console.log('  Examples:');

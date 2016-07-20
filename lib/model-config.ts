@@ -43,6 +43,9 @@ export class ModelConfig {
     let defVars = this.Config.vars["*"] || {};
 
     _.each(Setting.templates, (v) => {
+      //ignory template
+      if ((!_.isEmpty(Setting.mp_idsTemplateOnlyCmd)) && (!_.has(Setting.mp_idsTemplateOnlyCmd, v.getId()))) return;
+
       let cur: { [def: string]: any } = Setting.mp_idsTemplate[v.getId()] || {};
 
       _.each(defVars, (val, key) => cur[key] = val);

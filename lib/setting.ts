@@ -13,8 +13,10 @@ export interface Ids {
 export class Setting {
   //Main parameters
   //Command line section
-  //Use template for generate. [] - all
+  //Use template for generate. {} - all
   public static mp_idsTemplate: Ids = {};
+  //The need for ModelConfig.fillVarsSetting add vars only cmdline
+  public static mp_idsTemplateOnlyCmd: Ids = {};
 
   public static mp_templ_user_dir: string = '';
   public static mp_outdir: string = '';

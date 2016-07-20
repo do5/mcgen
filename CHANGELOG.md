@@ -1,3 +1,6 @@
+## 1.0.0-beta.27
+ - some bugfix
+
 ## 1.0.0-beta.26
 Features:
  - Added generation of model reflection for languages cs,ts. You must enable the option `gen-desc-model` on cmdline or in file `mcgen-config.json`
