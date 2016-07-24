@@ -1,6 +1,3 @@
-
-
-
 /**
  * User model base
 */
@@ -23,8 +20,6 @@ export interface User extends UserBase {
    */
   EMail: string;
 }
-
-
 export interface BaseTypeExt {
   /**
    * desc GetDataBaseExt

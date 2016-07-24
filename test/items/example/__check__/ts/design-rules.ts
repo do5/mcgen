@@ -1,23 +1,21 @@
 import { User } from "./auth/auth-model";
 import { BaseTypeExt } from "./auth/auth-model";
-
 /**
  * ConstName description
  */
 export namespace ConstName {
-  export const valInteger: number= 12;
-  export const valBoolean: boolean= true;
-  export const valInteger64: number= 11111111111;
+  export const valInteger = 12;
+  export const valBoolean = true;
+  export const valInteger64 = 11111111111;
   /**
    * desc val1
    */
-  export const valFloat: number= 24.34;
+  export const valFloat = 24.34;
   /**
    * desc valString
    */
-  export const valString: string= 'body-string';
+  export const valString = 'body-string';
 }
-
 export enum OnOff {
   /**
    * desc On value
@@ -28,7 +26,6 @@ export enum OnOff {
    */
   Off
 }
-
 export interface UserInfo extends User {
   /**
    * Required. 
@@ -47,8 +44,6 @@ export interface UserInfo extends User {
    */
   AnyVal: any[];
 }
-
-
 export interface BaseType {
   /**
    * desc GetDataBase
