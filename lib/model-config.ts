@@ -34,7 +34,7 @@ export class ModelConfig {
   }
 
   public isEmpty(): boolean {
-    return this.Config == {};
+    return _.isEmpty(this.Config);
   }
 
 

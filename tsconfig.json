@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+   "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es2015", // <= doesn't help
+      "es6", // <= doesn't help
+    ],
     "module": "commonjs",
     "sourceMap": true
   },

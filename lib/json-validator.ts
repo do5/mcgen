@@ -3,7 +3,7 @@ import * as fs from 'fs-extra';
 import {ErrorLast} from './error-last';
 
 export class JsonValidator extends ErrorLast {
-  private validate_shema: Jsen.JsenValidator;
+  private validate_shema: jsen.JsenValidator;
   private lastValidate: Object;
 
   constructor(private shemaPath: string) {

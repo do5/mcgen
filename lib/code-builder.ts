@@ -9,7 +9,7 @@ export class CodeBuider {
     CodeBuider.regs(helpershbs);
   }
 
-  private static regs(helpers: { [key: string]: Function }) {
+  private static regs(helpers: { [key: string]: Handlebars.HelperDelegate }) {
     _.each(helpers, (val, key) => {
       Handlebars.registerHelper(key, val);
     });

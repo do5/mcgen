@@ -51,7 +51,7 @@ var map: {
 } = {};
 
 //!!!!! Be sure to use the 'function' as break 'this'
-export var helpershbs: { [key: string]: Function } = {
+export var helpershbs: { [key: string]: Handlebars.HelperDelegate } = {
   /**
    * To namespace from file path. Check and replace [-,$,#]
    * #create-ns <val> <to_replace> <replacement> [cmd]
