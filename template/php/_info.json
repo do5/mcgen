@@ -1,5 +1,5 @@
 {
-  "$schema": "shemas/info-template-shema.json",
+  "$schema": "../../shemas/info-template-shema.json",
   "id": "php",
   "ext": ".php",
   "description": "PHP template",
