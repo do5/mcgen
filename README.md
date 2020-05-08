@@ -12,7 +12,7 @@ npm install mcgen --save-dev
 node_modules/.bin/mcgen init <dir-model>
 
 # We recommend add in a file 'package.json'=>
-#   "script": { "build-mcgen": "mcgen --indir <dir-model> --outdir <outdir>" }
+#   "script": { "build-mcgen": "mcgen build --indir <dir-model> --outdir <outdir>" }
 
 npm run build-mcgen
 ```

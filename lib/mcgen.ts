@@ -15,6 +15,7 @@ let cmd = new CmdUtils();
 
 program
   .version(package_json.version)
+  .command("build", {isDefault:true})
   .description(package_json.description)
   .option('-o, --outdir <path>', "output base dir created files", (val) => { Setting.mp_outdir = cmd.emptydir(val) })
   .option('-n, --indir <path>', "model input base dir. Example: test/design-rules.json.", (val) => { Setting.mp_indir = cmd.indir(val) })
@@ -26,9 +27,9 @@ program
   .on('--help', function () {
     console.log('  Examples:');
     console.log();
-    console.log(`   $ ${program.name()} --indir def/model --outdir src/model`);
-    console.log(`   $ ${program.name()} --indir def/model --outdir src/model --id php:ver=5;def=true,cs:ident=2`);
-    console.log(`   $ ${program.name()} --indir def/model --outdir src/model --id php:ver=5;def=true,cs:ident=2 --template-path user_template`);
+    console.log(`   $ ${program.name()} build --indir def/model --outdir src/model`);
+    console.log(`   $ ${program.name()} build --indir def/model --outdir src/model --id php:ver=5;def=true,cs:ident=2`);
+    console.log(`   $ ${program.name()} build --indir def/model --outdir src/model --id php:ver=5;def=true,cs:ident=2 --template-path user_template`);
     console.log(`   $ ${program.name()} list --template-path user_template`);
     console.log(`   $ ${program.name()} init new_project`);
     console.log();

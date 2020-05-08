@@ -243,7 +243,7 @@ describe('Proccess', () => {
   var _outdir = path.join(outdir, 'import', 'ok');
 
   it('exec via import', (done) => {
-    child_process.exec(`node ${path.join(Setting.__root, 'lib', 'mcgen')}  --indir ${_indir} --outdir ${_outdir}`, (err, stdout, stderr) => {
+    child_process.exec(`node ${path.join(Setting.__root, 'lib', 'mcgen')}  build --indir ${_indir} --outdir ${_outdir}`, (err, stdout, stderr) => {
       if (err) return done(err);
       if (stdout.indexOf('Usage:') >= 0) return done('Error run'); //if help
       done();

@@ -39,12 +39,11 @@
     "bin/"
   ],
   "scripts": {
-    "first": "typings install && tsc",
     "prepublish": "npm run build && npm run test",
     "pretest": "",
     "test": "mocha",
     "start": "tsc -w",
-    "watch-hbs": "onchange \"template/**/*.hbs\" -v -- node lib/mcgen.js --indir test/import/ok --outdir test/.temp/import/ok",
+    "watch-hbs": "onchange \"template/**/*.hbs\" -v -- node lib/mcgen.js build --indir test/import/ok --outdir test/.temp/import/ok",
     "build": "tsc"
   },
   "author": "do5",
