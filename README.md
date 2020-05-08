@@ -17,6 +17,11 @@ node_modules/.bin/mcgen init <dir-model>
 npm run build-mcgen
 ```
 
+## Developer guide
+We use VSCode and extensions:
+- EditorConfig for VS Code
+
+
 ## Command line
 
 ## Supported types
