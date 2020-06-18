@@ -71,7 +71,7 @@ export namespace PN_{{ name }} {
  * {{{ description }}}
 */
 {{/if}}
-export interface {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
+export class {{ name }}{{#if basetype}} extends {{basetype}}{{/if}} {
   {{#each items}}
   /**
    * {{#if-required}}Required{{else}}Optional{{/if-required}}. {{{ description }}}
