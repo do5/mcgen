@@ -13,7 +13,7 @@ export namespace PN_Mandor {
   export const prop1: string = "prop1";
 }
 
-export interface Mandor {
+export class Mandor {
   /**
    * Required. 
    */

@@ -26,7 +26,7 @@ export enum OnOff {
    */
   Off
 }
-export interface UserInfo extends User {
+export class UserInfo extends User {
   /**
    * Required. 
    */

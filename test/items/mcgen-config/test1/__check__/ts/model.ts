@@ -3,7 +3,7 @@ import { Promise2 } from "./System";
 
 
 
-export interface Mandor {
+export class Mandor {
   /**
    * Required. 
    */

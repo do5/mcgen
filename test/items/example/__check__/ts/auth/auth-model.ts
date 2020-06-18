@@ -1,7 +1,7 @@
 /**
  * User model base
 */
-export interface UserBase {
+export class UserBase {
   /**
    * Required. 
    */
@@ -14,7 +14,7 @@ export interface UserBase {
 /**
  * User model
 */
-export interface User extends UserBase {
+export class User extends UserBase {
   /**
    * Required. 
    */
